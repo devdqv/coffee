@@ -6,20 +6,17 @@ using System.Web.Mvc;
 
 namespace Coffee_62134455.Controllers
 {
-    public class Home_62134455Controller : Controller
+    public class GioHang_62134455Controller : Controller
     {
+        // GET: GioHang_62134455
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult ThucDon()
+        public ActionResult ThanhToan()
         {
             return View();
         }
-
-
-
-
     }
 }

@@ -128,7 +128,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\GioHang_62134455Controller.cs" />
     <Compile Include="Controllers\Home_62134455Controller.cs" />
+    <Compile Include="Controllers\QuanTri_62134455Controller.cs" />
+    <Compile Include="Controllers\SanPham_62134455Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -141,6 +144,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\admin_css.css" />
     <Content Include="Assets\css\ajax-loader.gif" />
     <Content Include="Assets\css\animate.css" />
     <Content Include="Assets\css\aos.css" />
@@ -148,6 +152,7 @@
     <Content Include="Assets\css\bootstrap.min.css" />
     <Content Include="Assets\css\bootstrap\bootstrap-grid.css" />
     <Content Include="Assets\css\bootstrap\bootstrap-reboot.css" />
+    <Content Include="Assets\css\css\font.awesome.css" />
     <Content Include="Assets\css\css\bootstrap-reboot.css" />
     <Content Include="Assets\css\css\mixins\_text-hide.css" />
     <Content Include="Assets\css\flaticon.css" />
@@ -217,6 +222,7 @@
     <Content Include="Assets\images\person_2.jpg" />
     <Content Include="Assets\images\person_3.jpg" />
     <Content Include="Assets\images\person_4.jpg" />
+    <Content Include="Assets\js\font.awesome.js" />
     <Content Include="Assets\js\aos.js" />
     <Content Include="Assets\js\bootstrap-datepicker.js" />
     <Content Include="Assets\js\bootstrap.min.js" />
@@ -309,6 +315,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home_62134455\Index.cshtml" />
+    <Content Include="Views\Home_62134455\ThucDon.cshtml" />
+    <Content Include="Views\GioHang_62134455\Index.cshtml" />
+    <Content Include="Views\SanPham_62134455\ThongTin.cshtml" />
+    <Content Include="Views\GioHang_62134455\ThanhToan.cshtml" />
+    <Content Include="Views\Shared\_LayoutQuanTri.cshtml" />
+    <Content Include="Views\QuanTri_62134455\SanPham.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
