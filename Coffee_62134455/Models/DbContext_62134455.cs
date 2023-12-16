@@ -35,10 +35,6 @@ namespace Coffee_62134455.Models
             modelBuilder.Entity<SanPhams_62134455>()
                 .Property(e => e.Gia)
                 .HasPrecision(10, 2);
-
-            modelBuilder.Entity<SanPhams_62134455>()
-                .Property(e => e.MoTa)
-                .IsUnicode(false);
         }
     }
 }

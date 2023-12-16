@@ -16,7 +16,6 @@ namespace Coffee_62134455.Models
 
         public decimal Gia { get; set; }
 
-        [Column(TypeName = "text")]
         public string MoTa { get; set; }
 
         [StringLength(100)]

@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_LayoutQuanTri.cshtml";
 }
 
+@model Coffee_62134455.Models.SanPhams_62134455
+
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -60,13 +62,7 @@
                 success: function (res) {
                     if (res.status == 1) {
                         $(this).removeClass("disabled");
-                        $.toast({
-                            heading: 'Thành công',
-                            text: res.message,
-                            showHideTransition: 'slide',
-                            position: 'bottom-right',
-                            icon: 'success'
-                        })
+                        ToastMessage(res.message);
                         setTimeout(() => {
                             $('#modal .btn-close').click();
 
@@ -77,13 +73,7 @@
                     }
                     else {
                         $("#submit").removeClass("disabled");
-                        $.toast({
-                            heading: 'Thông báo',
-                            text: res.message,
-                            showHideTransition: 'slide',
-                            position: 'bottom-right',
-                            icon: 'warning'
-                        })
+                        ToastMessage(res.message, false);
                     }
                 }
             });
@@ -109,12 +99,14 @@
                 formData.append("HinhAnh", files[0]);
             }
             else {
-                ToastMessage("Bạn phải chọn ảnh", false);
-                return false;
+                if ($('img[hasImage="true"]').length == 0) {
+                    ToastMessage("Bạn phải chọn ảnh", false);
+                    return false;
+                }
             }
 
             var TenSanPham = $("input[name='TenSanPham']").val();
-            var DonGia = $("input[name='DonGia']").val();
+            var Gia = $("input[name='Gia']").val();
             var sizes = '';
             var checkSize = false;
             $("input[name='Size']:checked").each(function () {
@@ -131,12 +123,13 @@
             var MoTa = $("textarea[name='MoTa']").val();
             var id_danhmuc = $("select[name='TenDanhMuc'] option:selected").val();
 
-            
+
             formData.append("TenSanPham", TenSanPham);
-            formData.append("Gia", DonGia);
+            formData.append("Gia", Gia);
             formData.append("Size", sizes);
             formData.append("MoTa", MoTa);
             formData.append("id_danhmuc", id_danhmuc);
+            formData.append("id", "@Model.id");
 
             $.ajax({
                 method: 'POST',
@@ -164,16 +157,33 @@
         //    $(this).autoNumeric('init');
         //})
 
+        //Binding size các cốc ra checkboox
+        var arrSizeModel = "@Model.Size";
+        var arSize = $(arrSizeModel.split(';')).each(function (index, val) {
+            if (val) {
+                $("input[name='Size'][value=" + val + "] ").prop('checked', true);
+            }
+        });
+
     })
 </script>
 <form style="padding:30px;">
+    @*<input type="text" id="id" value="@Model.id" class="hidden" />*@
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Ảnh ( Tối đa 3MB <span class="red">*</span>)</label>
         <div class="col-sm-10">
             <div class="dropzone img-upload">
                 <input class="mb-1" id="img-product" style="display:none;" type='file' onchange="readURL(this);" />
                 <div class="chooseImage" style="height:100px; width: 100px; border: 1px dotted black; border-radius:3px; cursor:pointer">
-                    <img height="100" width="100" style="padding:10px;" id="blah" src="~/Assets/icons/upload-icon.svg" alt="your image" />
+                    @if (Model.HinhAnh == null)
+                    {
+
+                        <img height="100" width="100" style="padding:10px;" id="blah" src="~/Assets/icons/upload-icon.svg" alt="your image" />
+                    }
+                    else
+                    {
+                        <img height="100" width="100" hasImage="true" style="padding:10px;" id="blah" src="/Assets/images/@Model.HinhAnh" alt="your image" />
+                    }
                 </div>
             </div>
         </div>
@@ -181,14 +191,16 @@
     <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Tên sản phẩm (<span class="red">*</span>)</label>
         <div class="col-sm-10">
-            <input class="form-control required" name="TenSanPham" placeholder="VD: Coffee muối,...">
+            @*<input class="form-control required" name="TenSanPham" placeholder="VD: Coffee muối,...">*@
+            @Html.EditorFor(x => Model.TenSanPham, new { htmlAttributes = new { @class = "required form-control", @placeholder = "VD: Coffee muối,..." } })
             <label class="message"></label>
         </div>
     </div>
     <div class="form-group row">
         <label for="inputPassword3" class="col-sm-2 col-form-label">Đơn giá (<span class="red">*</span>)</label>
         <div class="col-sm-10">
-            <input type="number" name="DonGia" class="form-control required currency">
+            @*<input type="number" name="Gia" class="form-control required currency">*@
+            @Html.EditorFor(x => Model.Gia, new { htmlAttributes = new { @class = "required form-control", @type = "number" } })
             <label class="message"></label>
         </div>
     </div>
@@ -226,14 +238,15 @@
     <div class="form-group row">
         <label for="inputPassword3" class="col-sm-2 col-form-label">Mô tả</label>
         <div class="col-sm-10">
-            <textarea class="form-control" name="MoTa"></textarea>
+            @*<textarea class="form-control" name="MoTa"></textarea>*@
+            @Html.TextAreaFor(x => Model.MoTa, new { @class = "form-control" })
         </div>
     </div>
 
     <div class="form-group row">
         <label for="inputPassword3" class="col-sm-2 col-form-label">Loại sản phẩm (<span class="red">*</span>)</label>
         <div class="col-sm-10">
-            @Html.DropDownList("TenDanhMuc", new SelectList(ViewBag.DanhMucs, "id", "TenDanhMuc"), new { @class = "required form-control" })
+            @Html.DropDownList("TenDanhMuc", new SelectList(ViewBag.DanhMucs, "id", "TenDanhMuc", Model.id_danhmuc), new { @class = "required form-control" })
             <label class="message"></label></br>
             <button id="themLoaiSP" class="btn btn-dark mt-1 pointer"><i class="icon icon-plus-circle"></i> Thêm Loại</button>
         </div>
@@ -241,7 +254,15 @@
 
     <div class="form-group row mt-5">
         <div class="col-sm-10">
-            <button type="submit" class="btn btn-success btn-add-product pointer"><i class="icon icon-plus-circle"></i> Thêm mới</button>
+            @if (Model.id == 0)
+            {
+
+                <button type="submit" class="btn btn-success btn-add-product pointer"><i class="icon icon-plus-circle"></i> Thêm mới</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-success btn-add-product pointer"><i class="icon icon-update"></i> Cập nhật</button>
+            }
         </div>
     </div>
 

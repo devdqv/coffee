@@ -166,7 +166,8 @@
                 location.href = "/QuanTriSP_62134455/ThemSanPham"
             })
 
-            $('.delete').click(function () {
+            $('.delete').click(function (e) {
+                e.preventDefault();
                 var id_SP = $(this).data('id');
                 var product_item = $(this); //Lấy nút xóa của dòng đó
                 $.confirm({
@@ -187,6 +188,12 @@
                         }
                     }
                 });
+            })
+
+            $('.edit').click(function (e) {
+                e.preventDefault();
+                var id_SP = $(this).data('id');
+                location.href = '/cap-nhat-sp?id=' + id_SP;
             })
 
 
@@ -234,8 +241,8 @@
                             <td>@item.DanhMucs_62134455.TenDanhMuc</td>
                             <td>@item.Gia</td>
                             <td>
-                                <a href="#" class="view" title="View" data-toggle="tooltip"><i class="icon icon-eye"></i></a>
-                                <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="icon icon-edit"></i></a>
+                                <a href="#" class="view" title="View" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-eye"></i></a>
+                                <a href="#" class="edit" title="Edit" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-edit"></i></a>
                                 <a href="#" class="delete" title="Delete" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-remove"></i></a>
                             </td>
                         </tr>

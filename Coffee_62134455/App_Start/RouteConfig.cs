@@ -19,6 +19,11 @@ namespace Coffee_62134455
                url: "danh-sach-sp",
                defaults: new { controller = "QuanTriSP_62134455", action = "DanhSachSanPham", id = UrlParameter.Optional }
            );
+            routes.MapRoute(
+               name: "cap-nhat-sp",
+               url: "cap-nhat-sp",
+               defaults: new { controller = "QuanTriSP_62134455", action = "ThemSanPham", id = UrlParameter.Optional }
+           );
 
             routes.MapRoute(
                 name: "Default",
