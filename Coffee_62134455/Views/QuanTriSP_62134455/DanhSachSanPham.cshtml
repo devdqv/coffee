@@ -2,7 +2,12 @@
 @{
     ViewBag.Title = "Quản trị sản phẩm";
     Layout = "~/Views/Shared/_LayoutQuanTri.cshtml";
+
 }
+
+@model List<Coffee_62134455.Models.SanPhams_62134455>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -161,6 +166,29 @@
                 location.href = "/QuanTriSP_62134455/ThemSanPham"
             })
 
+            $('.delete').click(function () {
+                var id_SP = $(this).data('id');
+                var product_item = $(this); //Lấy nút xóa của dòng đó
+                $.confirm({
+                    title: 'Thông báo',
+                    content: 'Xóa sản phẩm này ?',
+                    buttons: {
+                        Đóng: function () {
+                            
+                        },
+                        Xóa: {
+                            text: 'Xóa',
+                            action: function () {
+                                $.post("/QuanTriSP_62134455/XoaSanPham", { id: id_SP }, function (res) {
+                                    ToastMessage(res.message);
+                                    $(product_item).closest('.row_item').remove(); //Thực hiện xóa dòng
+                                })
+                            }
+                        }
+                    }
+                });
+            })
+
 
         })
     </script>
@@ -197,17 +225,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        @foreach (var item in Model)
+                        {
+
+                        <tr class="row_item">
                             <td>1</td>
-                            <td>Thomas Hardy</td>
-                            <td>89 Chiaroscuro Rd.</td>
-                            <td>Portland</td>
+                            <td><img src="/Assets/images/@item.HinhAnh" height="30" width="30"> @item.TenSanPham</td>
+                            <td>@item.DanhMucs_62134455.TenDanhMuc</td>
+                            <td>@item.Gia</td>
                             <td>
                                 <a href="#" class="view" title="View" data-toggle="tooltip"><i class="icon icon-eye"></i></a>
                                 <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i class="icon icon-edit"></i></a>
-                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="icon icon-remove"></i></a>
+                                <a href="#" class="delete" title="Delete" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-remove"></i></a>
                             </td>
                         </tr>
+                        }
                     </tbody>
                 </table>
                 <div class="clearfix">
@@ -226,7 +258,7 @@
         </div>
     </div>
 
-    
+
 </body>
 </html>
 

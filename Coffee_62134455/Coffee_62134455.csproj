@@ -158,6 +158,7 @@
     <Content Include="Assets\css\flaticon.css" />
     <Content Include="Assets\css\icomoon.css" />
     <Content Include="Assets\css\ionicons.min.css" />
+    <Content Include="Assets\css\jquery-confirm.min.css" />
     <Content Include="Assets\css\jquery.timepicker.css" />
     <Content Include="Assets\css\jquery.toast.min.css" />
     <Content Include="Assets\css\magnific-popup.css" />
@@ -225,12 +226,14 @@
     <Content Include="Assets\images\person_3.jpg" />
     <Content Include="Assets\images\person_4.jpg" />
     <Content Include="Assets\js\admin_js.js" />
+    <Content Include="Assets\js\AutoNumeric\AutoNumeric.js" />
     <Content Include="Assets\js\font.awesome.js" />
     <Content Include="Assets\js\aos.js" />
     <Content Include="Assets\js\bootstrap-datepicker.js" />
     <Content Include="Assets\js\bootstrap.min.js" />
     <Content Include="Assets\js\google-map.js" />
     <Content Include="Assets\js\jquery-3.2.1.min.js" />
+    <Content Include="Assets\js\jquery-confirm.min.js" />
     <Content Include="Assets\js\jquery-migrate-3.0.1.min.js" />
     <Content Include="Assets\js\jquery.animateNumber.min.js" />
     <Content Include="Assets\js\jquery.easing.1.3.js" />

@@ -1,7 +1,7 @@
 ﻿function validate() {
     var counter = 0;
     $(`.required`).each(function () {
-        if ($(this).val().trim() === "") {
+        if ($(this).val() == null || $(this).val()?.trim() === "") {
             counter++;
             $(this).parents("div").children('.message').addClass('text-danger').text("Bạn không được bỏ trống trường này");
         }
@@ -32,6 +32,16 @@
     return true;
 }
 
+//Thông báo 
+function ToastMessage(message, isSuccess = true) {
+    $.toast({
+        heading: 'Thông báo',
+        text: message,
+        showHideTransition: 'slide',
+        position: 'bottom-right',
+        icon: isSuccess ? 'success': 'warning'
+    })
+}
 function validateModal() {
     var counter = 0;
     $(`#modal .required`).each(function () {

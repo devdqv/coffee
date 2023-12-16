@@ -13,11 +13,22 @@ namespace Coffee_62134455
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(
+               name: "danh-sach-sp",
+               url: "danh-sach-sp",
+               defaults: new { controller = "QuanTriSP_62134455", action = "DanhSachSanPham", id = UrlParameter.Optional }
+           );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home_62134455", action = "Index", id = UrlParameter.Optional }
             );
+
+           
+
+
         }
     }
 }

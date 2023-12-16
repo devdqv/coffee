@@ -1,6 +1,7 @@
 ﻿using Coffee_62134455.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -15,18 +16,39 @@ namespace Coffee_62134455.Controllers
         // GET: QuanTriSP_62134455
         public ActionResult DanhSachSanPham()
         {
-            return View();
+            using (var db = new DbContext_62134455())
+            {
+
+                var lstSP = db.SanPhams_62134455.Include(x=>x.DanhMucs_62134455).ToList();
+                
+                return View(lstSP);
+            }
         }
 
         public ActionResult ThemSanPham()
         {
             using (var db = new DbContext_62134455())
             {
-
                 ViewBag.DanhMucs = db.DanhMucs_62134455.ToList();
             }
             return View();
         }
+        [HttpPost]
+        public ActionResult XoaSanPham(int id)
+        {
+            using (var db = new DbContext_62134455())
+            {
+                var obj = db.SanPhams_62134455.FirstOrDefault(x => x.id == id);
+                if (obj != null)
+                {
+                    db.SanPhams_62134455.Remove(obj);
+                    db.SaveChanges();
+                }    
+            }
+            return Json(new { status = 1, message = "Đã xóa sản phẩm thành công !"});
+        }
+
+        
         [ValidateInput(false)]
         [HttpPost]
         public ActionResult ThemSanPham(SanPhams_62134455 sanPham)
@@ -39,6 +61,7 @@ namespace Coffee_62134455.Controllers
                 filename = filename.Replace(" ", "");
                 string extension = Path.GetExtension(pic.FileName);
                 filename = filename + DateTime.Now.ToString("yymmssfff") + extension;
+                var fileNameTemp = filename;
                 var path = "~/Assets/images/" + filename;
                 filename = Path.Combine(Server.MapPath("~/Assets/images/"), filename);
 
@@ -54,7 +77,7 @@ namespace Coffee_62134455.Controllers
                 img.Save(filename);
                 using (var db = new DbContext_62134455())
                 {
-                    sanPham.HinhAnh = path;
+                    sanPham.HinhAnh = fileNameTemp;
                     db.SanPhams_62134455.Add(sanPham);
                     db.SaveChanges();
                 }
