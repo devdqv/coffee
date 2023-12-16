@@ -130,7 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GioHang_62134455Controller.cs" />
     <Compile Include="Controllers\Home_62134455Controller.cs" />
-    <Compile Include="Controllers\QuanTri_62134455Controller.cs" />
+    <Compile Include="Controllers\QuanTriSP_62134455Controller.cs" />
     <Compile Include="Controllers\SanPham_62134455Controller.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -172,6 +172,7 @@
     <Content Include="Assets\fonts\ionicons\css\ionicons.min.css" />
     <Content Include="Assets\fonts\ionicons\fonts\ionicons.svg" />
     <Content Include="Assets\fonts\open-iconic\open-iconic.svg" />
+    <Content Include="Assets\icons\upload-icon.svg" />
     <Content Include="Assets\images\about.jpg" />
     <Content Include="Assets\images\bg_1.jpg" />
     <Content Include="Assets\images\bg_2.jpg" />
@@ -222,6 +223,7 @@
     <Content Include="Assets\images\person_2.jpg" />
     <Content Include="Assets\images\person_3.jpg" />
     <Content Include="Assets\images\person_4.jpg" />
+    <Content Include="Assets\js\admin_js.js" />
     <Content Include="Assets\js\font.awesome.js" />
     <Content Include="Assets\js\aos.js" />
     <Content Include="Assets\js\bootstrap-datepicker.js" />
@@ -292,6 +294,8 @@
     <Content Include="Assets\fonts\open-iconic\open-iconic.woff" />
     <Content Include="Assets\images\.DS_Store" />
     <Content Include="Assets\js\.DS_Store" />
+    <Content Include="Assets\css\jquery.modal.min.css" />
+    <Content Include="Assets\js\jquery.modal.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -320,7 +324,8 @@
     <Content Include="Views\SanPham_62134455\ThongTin.cshtml" />
     <Content Include="Views\GioHang_62134455\ThanhToan.cshtml" />
     <Content Include="Views\Shared\_LayoutQuanTri.cshtml" />
-    <Content Include="Views\QuanTri_62134455\SanPham.cshtml" />
+    <Content Include="Views\QuanTriSP_62134455\SanPham.cshtml" />
+    <Content Include="Views\QuanTriSP_62134455\ThemSanPham.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

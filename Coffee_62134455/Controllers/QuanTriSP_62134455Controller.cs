@@ -6,12 +6,19 @@ using System.Web.Mvc;
 
 namespace Coffee_62134455.Controllers
 {
-    public class QuanTri_62134455Controller : Controller
+    public class QuanTriSP_62134455Controller : Controller
     {
-        // GET: QuanTri_62134455
+        // GET: QuanTriSP_62134455
         public ActionResult SanPham()
         {
             return View();
         }
+
+        public ActionResult ThemSanPham()
+        {
+            return View();
+        }
+
+        
     }
 }

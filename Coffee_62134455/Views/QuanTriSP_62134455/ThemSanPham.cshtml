@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewBag.Title = "ThemSanPham";
+    Layout = "~/Views/Shared/_LayoutQuanTri.cshtml";
+}
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(document).ready(function () {
+        $('.chooseImage').click(function () {
+            $('input[type=file]').trigger('click');
+        });
+
+
+        $('#themLoaiSP').click(function (e) {
+            e.preventDefault();
+            openModal("Thêm danh mục", $('.frm-add-danh-muc').html())
+        })
+        $('.btn-action-modal').click(function (e) {
+            $(this).addClass("disabled");
+            e.preventDefault();
+            if (!validateModal()) {
+                $(this).removeClass("disabled");
+                return false;
+            }
+
+            var formData = new FormData();
+
+            var TenDanhMuc = $("input[name='TenDanhMuc']").val();
+            formData.append("TenDanhMuc", TenDanhMuc);
+
+            $.ajax({
+                method: 'POST',
+                url: "/Book/Order",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    if (res.status == 1) {
+                        $.toast({
+                            heading: 'Thành công',
+                            text: res.message,
+                            showHideTransition: 'slide',
+                            position: 'bottom-right',
+                            icon: 'success'
+                        })
+                        setTimeout(() => {
+                            location.href = "/Book/Order";
+                        }, 1000)
+                    }
+                    else {
+                        $("#submit").removeClass("disabled");
+                        $.toast({
+                            heading: 'Thông báo',
+                            text: res.message,
+                            showHideTransition: 'slide',
+                            position: 'bottom-right',
+                            icon: 'warning'
+                        })
+                    }
+                }
+            });
+        })
+    })
+</script>
+<form style="padding:30px;">
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Ảnh</label>
+        <div class="col-sm-10">
+            <div class="dropzone img-upload">
+                <input class="mb-1" style="display:none;" type='file' onchange="readURL(this);" />
+                <div class="chooseImage" style="height:100px; width: 100px; border: 1px dotted black; border-radius:3px; cursor:pointer">
+                    <img height="100" width="100" style="padding:10px;" id="blah" src="~/Assets/icons/upload-icon.svg" alt="your image" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Tên sản phẩm</label>
+        <div class="col-sm-10">
+            <input class="form-control" placeholder="VD: Coffee muối,...">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Đơn giá</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">Size</div>
+        <div class="col-sm-10">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="size">
+                <label class="form-check-label" for="gridCheck1">
+                    S
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="size">
+                <label class="form-check-label" for="gridCheck1">
+                    M
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="size">
+                <label class="form-check-label" for="gridCheck1">
+                    L
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="size">
+                <label class="form-check-label" for="gridCheck1">
+                    Khổng lồ
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Mô tả</label>
+        <div class="col-sm-10">
+            <textarea class="form-control"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Loại sản phẩm</label>
+        <div class="col-sm-10">
+            <input type="number" class="form-control">
+            <button id="themLoaiSP" class="btn btn-dark mt-1"><i class="icon icon-plus-circle"></i> Thêm Loại</button>
+        </div>
+    </div>
+
+    <div class="form-group row mt-5">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-success"><i class="icon icon-plus-circle"></i> Thêm mới</button>
+        </div>
+    </div>
+
+
+
+
+</form>
+
+
+<form id="frm-add-danh-muc" class="frm-add-danh-muc hidden">
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-4 col-form-label">Danh mục (<span class="red">*</span>)</label>
+        <div class="col-8">
+            <input type="text" maxlength="255" name="TenDanhMuc" class="form-control required">
+            <label class="message"></label>
+        </div>
+    </div>
+</form>
+
+
+
+
+
