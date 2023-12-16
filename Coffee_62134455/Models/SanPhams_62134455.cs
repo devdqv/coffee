@@ -22,6 +22,9 @@ namespace Coffee_62134455.Models
         [StringLength(100)]
         public string HinhAnh { get; set; }
 
+        [StringLength(255)]
+        public string Size { get; set; }
+
         [StringLength(1000)]
         public string GhiChu { get; set; }
 

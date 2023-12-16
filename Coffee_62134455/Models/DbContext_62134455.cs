@@ -21,10 +21,6 @@ namespace Coffee_62134455.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DanhMucs_62134455>()
-                .Property(e => e.TenDanhMuc)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<DanhMucs_62134455>()
                 .HasMany(e => e.SanPhams_62134455)
                 .WithOptional(e => e.DanhMucs_62134455)
                 .HasForeignKey(e => e.id_danhmuc)
@@ -35,10 +31,6 @@ namespace Coffee_62134455.Models
                 .WithOptional(e => e.DonHangs_62134455)
                 .HasForeignKey(e => e.id_donhang)
                 .WillCascadeOnDelete();
-
-            modelBuilder.Entity<SanPhams_62134455>()
-                .Property(e => e.TenSanPham)
-                .IsUnicode(false);
 
             modelBuilder.Entity<SanPhams_62134455>()
                 .Property(e => e.Gia)

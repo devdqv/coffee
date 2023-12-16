@@ -159,6 +159,7 @@
     <Content Include="Assets\css\icomoon.css" />
     <Content Include="Assets\css\ionicons.min.css" />
     <Content Include="Assets\css\jquery.timepicker.css" />
+    <Content Include="Assets\css\jquery.toast.min.css" />
     <Content Include="Assets\css\magnific-popup.css" />
     <Content Include="Assets\css\open-iconic-bootstrap.min.css" />
     <Content Include="Assets\css\owl.carousel.min.css" />
@@ -237,6 +238,7 @@
     <Content Include="Assets\js\jquery.min.js" />
     <Content Include="Assets\js\jquery.stellar.min.js" />
     <Content Include="Assets\js\jquery.timepicker.min.js" />
+    <Content Include="Assets\js\jquery.toast.min.js" />
     <Content Include="Assets\js\jquery.waypoints.min.js" />
     <Content Include="Assets\js\main.js" />
     <Content Include="Assets\js\owl.carousel.min.js" />
@@ -324,8 +326,9 @@
     <Content Include="Views\SanPham_62134455\ThongTin.cshtml" />
     <Content Include="Views\GioHang_62134455\ThanhToan.cshtml" />
     <Content Include="Views\Shared\_LayoutQuanTri.cshtml" />
-    <Content Include="Views\QuanTriSP_62134455\SanPham.cshtml" />
+    <Content Include="Views\QuanTriSP_62134455\DanhSachSanPham.cshtml" />
     <Content Include="Views\QuanTriSP_62134455\ThemSanPham.cshtml" />
+    <Content Include="Views\QuanTriSP_62134455\ThemDanhMuc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

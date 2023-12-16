@@ -34,7 +34,7 @@
 
 function validateModal() {
     var counter = 0;
-    $(`#exampleModal .required`).each(function () {
+    $(`#modal .required`).each(function () {
         if ($(this).val().trim() === "") {
             counter++;
             $(this).parents("div").children('.message').addClass('text-danger').text("Bạn không được bỏ trống trường này");
@@ -48,7 +48,7 @@ function validateModal() {
         return false;
     }
     //Validate giá trị tối thiểu
-    $("#exampleModal input[min]").each(function () {
+    $("#modal input[min]").each(function () {
         var min = $(this).attr("min");
         if ($(this).val() && parseFloat($(this).val()) < parseFloat(min)) {
             counter++;
