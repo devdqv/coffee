@@ -139,6 +139,8 @@
     <Compile Include="Models\DanhMucs_62134455.cs" />
     <Compile Include="Models\DbContext_62134455.cs" />
     <Compile Include="Models\DonHangs_62134455.cs" />
+    <Compile Include="Models\DtoEdit\ChiTietDonHangsDtoEdit_62134455.cs" />
+    <Compile Include="Models\DtoEdit\DonHangsDtoEdit_62134455.cs" />
     <Compile Include="Models\SanPhams_62134455.cs" />
     <Compile Include="Models\TaiKhoans_62134455.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

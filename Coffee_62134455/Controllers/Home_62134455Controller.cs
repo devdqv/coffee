@@ -1,4 +1,5 @@
 ﻿using Coffee_62134455.Models;
+using Coffee_62134455.Models.DtoEdit;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -62,7 +63,7 @@ namespace Coffee_62134455.Controllers
         }
 
         [HttpPost]
-        public ActionResult ThemVaoGio(ChiTietDonHangs_62134455 model)
+        public ActionResult ThemVaoGio(ChiTietDonHangsDtoEdit_62134455 model)
         {
             try
             {
@@ -72,24 +73,23 @@ namespace Coffee_62134455.Controllers
                 using (var db = new DbContext_62134455())
                 {
                     sp = db.SanPhams_62134455.FirstOrDefault(x => x.id == model.id_sanpham);
+                    model.DonGia = sp.Gia;
+                    model.TenSanPham = sp.TenSanPham;
+                    model.TenSanPham = sp.MoTa;
+                    model.HinhAnh = sp.HinhAnh;
                 }
                 //Nếu là sản phẩm thêm vào giỏ đầu tiên
                 if (Session["donhang"] == null)
                 {
-                    var donhang = new DonHangs_62134455();
-
-                    model.DonGia = sp.Gia;
-                    model.SanPhams_62134455 = sp;
-                    donhang.ChiTietDonHangs_62134455.Add(model);
+                    var donhang = new DonHangsDtoEdit_62134455();
+                    donhang.ChiTietDonHangsDtoEdit_62134455.Add(model);
                     Session["donhang"] = donhang;
                 }
                 else
                 {
                     //Nếu đã có sản phẩm trong giỏ hàng rồi
-                    var donhang = Session["donhang"] as DonHangs_62134455;
-                    model.DonGia = sp.Gia;
-                    model.SanPhams_62134455 = sp;
-                    var matHangTrongGio = donhang.ChiTietDonHangs_62134455.FirstOrDefault(x => x.id_sanpham == model.id_sanpham);
+                    var donhang = Session["donhang"] as DonHangsDtoEdit_62134455;
+                    var matHangTrongGio = donhang.ChiTietDonHangsDtoEdit_62134455.FirstOrDefault(x => x.id_sanpham == model.id_sanpham);
                     //Nếu mặt hàng này đã có trong giỏ => cập nhật số lượng
                     if (matHangTrongGio != null)
                     {
@@ -97,7 +97,7 @@ namespace Coffee_62134455.Controllers
                     }
                     else
                     {
-                        donhang.ChiTietDonHangs_62134455.Add(model);
+                        donhang.ChiTietDonHangsDtoEdit_62134455.Add(model);
                     }
                     Session["donhang"] = donhang;
                 }

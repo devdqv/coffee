@@ -45,50 +45,8 @@
             $('#modal .sizePreviewHeader').html(val);
         })
 
-
-        //click nút Thêm vào giỏ
-        $('#modal .btn-submit').click(function (e) {
-            $(this).addClass("disabled");
-            e.preventDefault();
-            if (!validateModal()) {
-                $(this).removeClass("disabled");
-                return false;
-            }
-
-            var formData = new FormData();
-
-            var SoLuong = $("input[name='SoLuong']").val();
-            formData.append("SoLuong", SoLuong);
-
-            var Size = $("input[name='Size']:checked").val() ?? "";
-            formData.append("Size", Size);
-
-            var SoLuong = $("input[name='SoLuong']").val();
-            formData.append("SoLuong", SoLuong);
-
-            var GhiChu = $("input[name='GhiChu']").val();
-            formData.append("GhiChu", GhiChu);
-
-            formData.append("id_sanpham", '@Model.id');
-
-            $.ajax({
-                method: 'POST',
-                url: "/Home_62134455/ThemVaoGio",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (res) {
-                    if (res.status == 1) {
-                        ToastMessage(res.message);
-                        $('#modal .btn-close').click();
-                    }
-                    else {
-                        ToastMessage(res.message, false);
-                    }
-                    $('#modal .btn-submit')
-                }
-            });
-        })
+        
+        
 
 
         //Binding size các cốc ra checkboox

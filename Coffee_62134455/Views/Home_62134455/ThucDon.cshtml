@@ -4,21 +4,68 @@
 }
 @using Coffee_62134455.Models
 
+
 <script>
     $(document).ready(function () {
+        var id_sanpham = 0;
         $('.btn-try-now').click(function (e) {
             e.preventDefault();
+            id_sanpham = $(this).data('id');
             $.get("/Home_62134455/PopupDatMon", { id: $(this).data('id') }, function (html) {
                 openModal("Đặt sản phẩm", html, "frm-dat-mon", "Thêm vào giỏ");
             })
         })
         
 
+       
+        //click nút Thêm vào giỏ
+        $('#modal').on('click', '.btn-submit',function (e) {
+            $(this).addClass("disabled");
+            e.preventDefault();
+            if (!validateModal()) {
+                $(this).removeClass("disabled");
+                return false;
+            }
 
-        
+            var formData = new FormData();
+
+            var SoLuong = $("input[name='SoLuong']").val();
+            formData.append("SoLuong", SoLuong);
+
+            var Size = $("input[name='Size']:checked").val() ?? "";
+            formData.append("Size", Size);
+
+            var SoLuong = $("input[name='SoLuong']").val();
+            formData.append("SoLuong", SoLuong);
+
+            var GhiChu = $("input[name='GhiChu']").val();
+            formData.append("GhiChu", GhiChu);
+
+            formData.append("id_sanpham", id_sanpham);
+
+            $.ajax({
+                method: 'POST',
+                url: "/Home_62134455/ThemVaoGio",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    if (res.status == 1) {
+                        ToastMessage(res.message);
+                        $("#modal").modal("hide");
+                    }
+                    else {
+                        ToastMessage(res.message, false);
+                    }
+                    $('#modal .btn-submit').removeClass("disabled")
+                }
+            });
+        })
+
+
     })
-    
 </script>
+
 <section class="ftco-section">
     <div class="container">
         <div class="row">
