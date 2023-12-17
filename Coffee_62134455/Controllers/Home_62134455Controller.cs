@@ -41,6 +41,18 @@ namespace Coffee_62134455.Controllers
 
         public ActionResult ThucDon()
         {
+            
+            using (var db = new DbContext_62134455())
+            {
+                ViewBag.listDanhMuc = db.DanhMucs_62134455.ToList();
+                ViewBag.listSanPham = db.SanPhams_62134455.ToList();
+            }
+            
+            return View();
+        }
+
+        public ActionResult PopupDatMon()
+        {
             return View();
         }
 

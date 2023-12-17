@@ -333,6 +333,7 @@
     <Content Include="Views\QuanTriSP_62134455\ThemSanPham.cshtml" />
     <Content Include="Views\QuanTriSP_62134455\ThemDanhMuc.cshtml" />
     <Content Include="Views\Home_62134455\SanPhamTheoDanhMuc.cshtml" />
+    <Content Include="Views\Home_62134455\PopupDatMon.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
