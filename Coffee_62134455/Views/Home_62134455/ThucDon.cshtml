@@ -8,10 +8,14 @@
     $(document).ready(function () {
         $('.btn-try-now').click(function (e) {
             e.preventDefault();
-            $.get("/Home_62134455/PopupDatMon", {}, function (html) {
-                openModal("Đặt sản phẩm", html, "frm-dat-mon", "Đặt món")
+            $.get("/Home_62134455/PopupDatMon", { id: $(this).data('id') }, function (html) {
+                openModal("Đặt sản phẩm", html, "frm-dat-mon", "Thêm vào giỏ");
             })
         })
+        
+
+
+        
     })
     
 </script>
@@ -36,7 +40,7 @@
                                     <p>@sp.MoTa</p>
                                 </div>
                             </div>
-                            <p><a href="#" class="btn btn-primary btn-outline-primary btn-try-now">Thử ngay</a></p>
+                            <p><a href="#" data-id="@sp.id" class="btn btn-primary btn-outline-primary btn-try-now">Thử ngay</a></p>
                         </div>
                     }
                 </div>

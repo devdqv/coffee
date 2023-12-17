@@ -1,7 +1,16 @@
-﻿
+﻿@using Coffee_62134455.Models;
+@model DonHangs_62134455
 @{
     ViewBag.Title = "Index";
 }
+
+<style>
+    .note-field {
+        text-align: start!important;
+        font-size: 11pt;
+        padding: 10px !important;
+    }
+</style>
 
 <section class="ftco-section ftco-cart">
     <div class="container">
@@ -11,81 +20,89 @@
                     <table class="table">
                         <thead class="thead-primary">
                             <tr class="text-center">
-                                <th>&nbsp;</th>
-                                <th>&nbsp;</th>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
+                                <th style="width:5%">&nbsp;</th>
+                                <th style="width:10%">&nbsp;</th>
+                                <th>Sản phẩm</th>
+                                <th style="width:10%">Giá</th>
+                                <th style="width:10%">Size</th>
+                                <th style="width:10%">Số lượng</th>
+                                <th style="width:15%">Thành tiền</th>
+                                <th style="width:20%">Ghi chú</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="text-center">
-                                <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
+                            @{
+                                decimal TongTienHoaDon = 0;
+                                decimal PhiVanChuyen = 0;
+                            }
+                            @foreach (var item in Model.ChiTietDonHangs_62134455)
+                            {
 
-                                <td class="image-prod"><div class="img" style="background-image:url(images/menu-2.jpg);"></div></td>
+                                <tr class="text-center">
+                                    <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
 
-                                <td class="product-name">
-                                    <h3>Creamy Latte Coffee</h3>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                </td>
+                                    <td class="image-prod"><div class="img" width="30" style="background-image:url(/Assets/images/@item.SanPhams_62134455.HinhAnh);"></div></td>
 
-                                <td class="price">$4.90</td>
+                                    <td class="">
+                                        <h3>@item.SanPhams_62134455.TenSanPham</h3>
+                                        <p>@item.SanPhams_62134455.MoTa</p>
+                                    </td>
 
-                                <td class="quantity">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                </td>
+                                    <td class="">@string.Format("{0:#,###}", item.DonGia) ₫</td>
+                                    <td class="size">@item.Size</td>
 
-                                <td class="total">$4.90</td>
-                            </tr><!-- END TR-->
+                                    <td class="">
+                                        <div class="input-group mb-3">
 
-                            <tr class="text-center">
-                                <td class="product-remove"><a href="#"><span class="icon-close"></span></a></td>
+                                            <input type="number" name="SoLuong" class="form-control input-number" value="@item.SoLuong" min="1">
+                                        </div>
+                                    </td>
 
-                                <td class="image-prod"><div class="img" style="background-image:url(images/dish-2.jpg);"></div></td>
 
-                                <td class="product-name">
-                                    <h3>Grilled Ribs Beef</h3>
-                                    <p>Far far away, behind the word mountains, far from the countries</p>
-                                </td>
+                                    <td class="">@string.Format("{0:#,###}", item.SoLuong * item.DonGia) ₫</td>
 
-                                <td class="price">$15.70</td>
+                                    <td class="ghi-chu">
+                                        <div class="input-group mb-3">
+                                            <input type="text" name="GhiChu" class="form-control note-field" value="@item.GhiChu">
+                                        </div>
+                                    </td>
+                                </tr><!-- END TR-->
 
-                                <td class="quantity">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                    </div>
-                                </td>
+                                TongTienHoaDon += (item.SoLuong * item.DonGia.Value);
 
-                                <td class="total">$15.70</td>
-                            </tr><!-- END TR-->
+                            }
+
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
         <div class="row justify-content-end">
-            <div class="col col-lg-3 col-md-6 mt-5 cart-wrap ftco-animate">
+            <div class="col col-lg-4 col-md-6 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
-                    <h3>Cart Totals</h3>
+                    <h3>Tổng hóa đơn</h3>
                     <p class="d-flex">
-                        <span>Subtotal</span>
-                        <span>$20.60</span>
+                        <span>Tổng tiền</span>
+                        <span>@string.Format("{0:#,###}", TongTienHoaDon) ₫</span>
                     </p>
                     <p class="d-flex">
-                        <span>Delivery</span>
-                        <span>$0.00</span>
-                    </p>
-                    <p class="d-flex">
-                        <span>Discount</span>
-                        <span>$3.00</span>
+                        <span>Phí vận chuyển</span>
+                        @if (TongTienHoaDon > 300000)
+                        {
+
+                            <span>Miễn phí</span>
+                        }
+                        else
+                        {
+                            PhiVanChuyen = 30000;
+
+                            <span>@string.Format("{0:#,###}", PhiVanChuyen) ₫</span>
+                        }
                     </p>
                     <hr>
                     <p class="d-flex total-price">
-                        <span>Total</span>
-                        <span>$17.60</span>
+                        <span>Cần trả</span>
+                        <span>@string.Format("{0:#,###}", TongTienHoaDon + PhiVanChuyen) ₫</span>
                     </p>
                 </div>
                 <p class="text-center"><a href="/GioHang_62134455/ThanhToan" class="btn btn-primary py-3 px-4">Đặt hàng</a></p>

@@ -113,13 +113,7 @@
                 sizes += $(this).val() + ';';
                 checkSize = true;
             });
-            if (!checkSize) {
-                $('.messageSize').addClass('text-danger').text("Bạn phải chọn ít nhất 1 size đồ uống");
-                return false;
-            }
-            else {
-                $('.messageSize').removeClass('text-danger').text("");
-            }
+            
             var MoTa = $("textarea[name='MoTa']").val();
             var id_danhmuc = $("select[name='TenDanhMuc'] option:selected").val();
 
@@ -209,25 +203,25 @@
         <div class="col-sm-10">
             <label class="messageSize"></label>
             <div class="form-check">
-                <input class="form-check-input" value="s" type="checkbox" name="Size">
+                <input class="form-check-input" value="S" type="checkbox" name="Size">
                 <label class="form-check-label">
                     S
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" value="m" type="checkbox" name="Size">
+                <input class="form-check-input" value="M" type="checkbox" name="Size">
                 <label class="form-check-label">
                     M
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" value="l" type="checkbox" name="Size">
+                <input class="form-check-input" value="L" type="checkbox" name="Size">
                 <label class="form-check-label">
                     L
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" value="big" type="checkbox" name="Size">
+                <input class="form-check-input" value="Khổng lồ" type="checkbox" name="Size">
                 <label class="form-check-label">
                     Khổng lồ
                 </label>

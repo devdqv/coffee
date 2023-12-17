@@ -3,6 +3,9 @@
     Layout = null;
 }
 
+@using Coffee_62134455.Models;
+@model SanPhams_62134455
+
 <style>
     .form-control {
         display: block !important;
@@ -35,15 +38,80 @@
                 $('#modal input[name="SoLuong"]').val(Number($('#modal input[name="SoLuong"]').val()) - 1);
             }
         })
+
+
+        $('#modal').on("click", '.choose-size', function () {
+            let val = $(this).val();
+            $('#modal .sizePreviewHeader').html(val);
+        })
+
+
+        //click nút Thêm vào giỏ
+        $('#modal .btn-submit').click(function (e) {
+            $(this).addClass("disabled");
+            e.preventDefault();
+            if (!validateModal()) {
+                $(this).removeClass("disabled");
+                return false;
+            }
+
+            var formData = new FormData();
+
+            var SoLuong = $("input[name='SoLuong']").val();
+            formData.append("SoLuong", SoLuong);
+
+            var Size = $("input[name='Size']:checked").val() ?? "";
+            formData.append("Size", Size);
+
+            var SoLuong = $("input[name='SoLuong']").val();
+            formData.append("SoLuong", SoLuong);
+
+            var GhiChu = $("input[name='GhiChu']").val();
+            formData.append("GhiChu", GhiChu);
+
+            formData.append("id_sanpham", '@Model.id');
+
+            $.ajax({
+                method: 'POST',
+                url: "/Home_62134455/ThemVaoGio",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    if (res.status == 1) {
+                        ToastMessage(res.message);
+                        $('#modal .btn-close').click();
+                    }
+                    else {
+                        ToastMessage(res.message, false);
+                    }
+                    $('#modal .btn-submit')
+                }
+            });
+        })
+
+
+        //Binding size các cốc ra checkboox
+        var arrSizeModel = "@Model.Size";
+        var arSize = $(arrSizeModel.split(';')).each(function (index, val) {
+            if (val) {
+                if (index == 0) {
+                    $('#modal .sizePreviewHeader').html(val);
+                }
+                $('.block-size-product').append('<div class="col-3"> <div class="form-check"> ' +
+                    '<input class="form-check-input choose-size" type="radio" name="Size" ' + (index == 0 ? "checked": "") + ' value="' + val + '"/><label class="form-check-label">Size ' + val + '</label> </div> </div>')
+            }
+        });
+
     })
 </script>
 <div class="row">
-    <div class="col-3">
-        <img src="~/Assets/images/image_1.jpg" width="100" height="100" />
+    <div class="col-md-3">
+        <img src="/Assets/images/@Model.HinhAnh" width="100" height="100" />
     </div>
-    <div class="col-9">
-        <div class="font-weight-bold">Matcha Latte</div>
-        <p>Size M</p>
+    <div class="col-md-9">
+        <div class="font-weight-bold">@Model.TenSanPham</div>
+        <p>Size <span class="sizePreviewHeader" style="color:black;"></span></p>
     </div>
 </div>
 <hr />
@@ -52,36 +120,19 @@
 
         <div class="font-weight-bold">Mô tả</div>
         <p>
-            Matcha Latte
-
-            Thành phần: Matcha, Sữa tươi.
-
-            (Hình ảnh sản phẩm mang tính chất minh họa với mong muốn giúp khách hàng cảm nhận rõ hơn về món)
+            @Model.MoTa
         </p>
     </div>
 </div>
 <hr />
-<div class="row">
-    <div class="col-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked>
-            <label class="form-check-label">Option 1</label>
-        </div>
+<div class="row block-size-product">
 
-    </div>
-    <div class="col-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked>
-            <label class="form-check-label">Option 1</label>
-        </div>
-
-    </div>
 </div>
-<div class="row">
+<div class="row mt-3">
     <div class="d-flex" style="padding-left:15px;">Số lượng </div>
     <div class="d-flex ml-3"><input type="number" name="SoLuong" value="1" class="form-control" readonly min="1" max="100"></div>
     <button class="themSoLuong btn btn-dark ml-2">+</button>
-    <button class="giamSoLuong btn btn-dark ml-1">-</button>    
+    <button class="giamSoLuong btn btn-dark ml-1">-</button>
 </div>
 
 <div class="row mt-3">

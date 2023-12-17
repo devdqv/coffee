@@ -8,6 +8,12 @@ namespace Coffee_62134455.Models
 
     public partial class SanPhams_62134455
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SanPhams_62134455()
+        {
+            ChiTietDonHangs_62134455 = new HashSet<ChiTietDonHangs_62134455>();
+        }
+
         public int id { get; set; }
 
         [Required]
@@ -28,6 +34,9 @@ namespace Coffee_62134455.Models
         public string GhiChu { get; set; }
 
         public int? id_danhmuc { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietDonHangs_62134455> ChiTietDonHangs_62134455 { get; set; }
 
         public virtual DanhMucs_62134455 DanhMucs_62134455 { get; set; }
     }

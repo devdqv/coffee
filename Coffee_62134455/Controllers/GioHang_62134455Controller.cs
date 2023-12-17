@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Coffee_62134455.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,12 @@ namespace Coffee_62134455.Controllers
         // GET: GioHang_62134455
         public ActionResult Index()
         {
-            return View();
+            var donhang = new DonHangs_62134455();
+            if (Session["donhang"] != null)
+            {
+                donhang = Session["donhang"] as DonHangs_62134455;
+            }
+            return View(donhang);
         }
 
         public ActionResult ThanhToan()

@@ -20,6 +20,14 @@ namespace Coffee_62134455.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ChiTietDonHangs_62134455>()
+                .Property(e => e.DonGia)
+                .HasPrecision(10, 2);
+
+            modelBuilder.Entity<ChiTietDonHangs_62134455>()
+                .Property(e => e.Size)
+                .IsUnicode(false);
+
             modelBuilder.Entity<DanhMucs_62134455>()
                 .HasMany(e => e.SanPhams_62134455)
                 .WithOptional(e => e.DanhMucs_62134455)
@@ -35,6 +43,12 @@ namespace Coffee_62134455.Models
             modelBuilder.Entity<SanPhams_62134455>()
                 .Property(e => e.Gia)
                 .HasPrecision(10, 2);
+
+            modelBuilder.Entity<SanPhams_62134455>()
+                .HasMany(e => e.ChiTietDonHangs_62134455)
+                .WithOptional(e => e.SanPhams_62134455)
+                .HasForeignKey(e => e.id_sanpham)
+                .WillCascadeOnDelete();
         }
     }
 }
