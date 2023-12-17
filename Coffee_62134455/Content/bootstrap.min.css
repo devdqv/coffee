@@ -4622,7 +4622,7 @@ button.close {
     .modal-dialog {
         max-width: 500px;
         margin: auto;
-        top:40%;
+        top:10%;
     }
 
     .modal-sm {

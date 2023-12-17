@@ -10,6 +10,7 @@ namespace Coffee_62134455.Models
         public DbContext_62134455()
             : base("name=DbContext_62134455")
         {
+            this.Configuration.LazyLoadingEnabled = true;
         }
 
         public virtual DbSet<ChiTietDonHangs_62134455> ChiTietDonHangs_62134455 { get; set; }

@@ -13,6 +13,11 @@ namespace Coffee_62134455
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute(
+               name: "danh-sach-don-hang",
+               url: "danh-sach-don-hang",
+               defaults: new { controller = "QuanTriDonHang_62134455", action = "Index", id = UrlParameter.Optional }
+           );
 
             routes.MapRoute(
                name: "danh-sach-sp",
