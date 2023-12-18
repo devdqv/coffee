@@ -52,7 +52,8 @@ namespace Coffee_62134455.Controllers
                 return Json(new { tongtien = string.Format("{0:#,###} ₫", tongtienS), 
                     phivanchuyen = (tongtienS != 0 && phivanchuyenS == 0)? "Miễn phí":string.Format("{0:#,###} ₫", phivanchuyenS), 
                     sotienphaitra = string.Format("{0:#,###} ₫", tongtienS + phivanchuyenS),
-                    thanhtien= string.Format("{0:#,###} ₫", ThanhTien)
+                    thanhtien= string.Format("{0:#,###} ₫", ThanhTien),
+                    total = donhang.ChiTietDonHangsDtoEdit_62134455.Count
                 });
             }
             else

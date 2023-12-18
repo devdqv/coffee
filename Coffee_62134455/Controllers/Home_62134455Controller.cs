@@ -12,6 +12,19 @@ namespace Coffee_62134455.Controllers
 {
     public class Home_62134455Controller : Controller
     {
+
+        [ChildActionOnly]
+        public ActionResult NavBar()
+        {
+            var donhang = Session["donhang"] as DonHangsDtoEdit_62134455;
+            int total = 0;
+            if (donhang != null)
+            {
+                total = donhang.ChiTietDonHangsDtoEdit_62134455.Count;
+            }
+            return PartialView("_NavBar", total);
+        }
+
         public ActionResult Index()
         {
             using (var db = new DbContext_62134455())
@@ -89,11 +102,15 @@ namespace Coffee_62134455.Controllers
                 {
                     //Nếu đã có sản phẩm trong giỏ hàng rồi
                     var donhang = Session["donhang"] as DonHangsDtoEdit_62134455;
-                    var matHangTrongGio = donhang.ChiTietDonHangsDtoEdit_62134455.FirstOrDefault(x => x.id_sanpham == model.id_sanpham);
+                    var matHangTrongGio = donhang.ChiTietDonHangsDtoEdit_62134455.FirstOrDefault(x => x.id_sanpham == model.id_sanpham && x.Size == model.Size);
                     //Nếu mặt hàng này đã có trong giỏ => cập nhật số lượng
                     if (matHangTrongGio != null)
                     {
                         matHangTrongGio.SoLuong += model.SoLuong;
+                        if (!string.IsNullOrEmpty(model.GhiChu))
+                        {
+                            matHangTrongGio.GhiChu = model.GhiChu;
+                        }
                     }
                     else
                     {
@@ -101,7 +118,7 @@ namespace Coffee_62134455.Controllers
                     }
                     Session["donhang"] = donhang;
                 }
-                return Json(new { status = 1, message = "Đã thêm sản phẩm này vào giỏ" });
+                return Json(new { status = 1, message = "Đã thêm sản phẩm này vào giỏ", total = (Session["donhang"] as DonHangsDtoEdit_62134455).ChiTietDonHangsDtoEdit_62134455.Count });
             }
             catch (Exception ex)
             {

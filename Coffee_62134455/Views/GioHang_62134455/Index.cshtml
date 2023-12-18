@@ -19,6 +19,7 @@
             var row_item = $(this); //Lấy dữ liệu dòng cần xóa
             $.post("/GioHang_62134455/CapNhatSanPhamTrongGio", { id_sanpham: $(row_item).data('id'), actionEdit : "remove" }, function (res) {
                 $(row_item).closest('.row_item').remove(); //Thực hiện xóa dòng
+                $('#SoLuongSanPhamTrongGio').html(res.total);
                 //Thực tiền tính lại tiền tổng hóa đơn
                 $('.TongTienHoaDon').html(res.tongtien);
                 $('.PhiVanChuyen').html(res.phivanchuyen);

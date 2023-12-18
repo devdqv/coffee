@@ -20,6 +20,13 @@ namespace Coffee_62134455
           );
 
             routes.MapRoute(
+             name: "thong-tin-san-pham",
+             url: "thong-tin-san-pham",
+             defaults: new { controller = "SanPham_62134455", action = "ThongTin", id = UrlParameter.Optional }
+         );
+
+
+            routes.MapRoute(
               name: "doanh-thu",
               url: "doanh-thu",
               defaults: new { controller = "QuanTriDoanhThu_62134455", action = "Index", id = UrlParameter.Optional }
@@ -48,7 +55,7 @@ namespace Coffee_62134455
                 defaults: new { controller = "Home_62134455", action = "Index", id = UrlParameter.Optional }
             );
 
-           
+
 
 
         }

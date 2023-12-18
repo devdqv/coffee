@@ -343,6 +343,7 @@
     <Content Include="Views\QuanTriDonHang_62134455\Index.cshtml" />
     <Content Include="Views\QuanTriDonHang_62134455\ChiTietDonHang.cshtml" />
     <Content Include="Views\QuanTriDoanhThu_62134455\Index.cshtml" />
+    <Content Include="Views\Home_62134455\_NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

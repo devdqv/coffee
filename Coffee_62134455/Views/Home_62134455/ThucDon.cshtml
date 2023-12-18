@@ -52,6 +52,7 @@
                 success: function (res) {
                     if (res.status == 1) {
                         ToastMessage(res.message);
+                        $('#SoLuongSanPhamTrongGio').html(res.total);
                         $("#modal").modal("hide");
                     }
                     else {
