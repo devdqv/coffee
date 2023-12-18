@@ -5,6 +5,10 @@
 @using Coffee_62134455.Models;
 @model DonHangs_62134455
 
+
+
+@using (Html.BeginForm("XacNhanDonHang", "QuanTriDonHang_62134455", new { id = Model.id }, FormMethod.Post))
+{
 <h1>THÔNG TIN ĐƠN HÀNG</h1>
 <div>Khách hàng : <span style="color:darkred; font-weight:700;">@Model.TenKhachHang</span></div>
 <div>Số ĐT:  <span style="color:darkred; font-weight:700;">@Model.SDT</span></div>
@@ -30,8 +34,19 @@
                 <td>@item.SoLuong</td>
             </tr>
         }
-        
+
     </tbody>
 </table>
+<div>
+    @if (Model.TrangThai == 0)
+    {
 
-<button class="btn btn-success btn-confirm pointer">Xác nhận pha chế</button>
+        <button type="submit" class="btn btn-success btn-confirm pointer">Xác nhận</button>
+    }
+    else
+    {
+        <h4 style="color:green;">Đã xác nhận</h4>
+    }
+</div>
+
+}

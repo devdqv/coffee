@@ -24,11 +24,18 @@ namespace Coffee_62134455.Controllers
         // GET: QuanTriDonHang_62134455
         public ActionResult ChiTietDonHang(int id)
         {
-            DonHangs_62134455 donHang = new DonHangs_62134455();
-
-            donHang = db.DonHangs_62134455.Where(x => x.id == id).Include(x => x.ChiTietDonHangs_62134455).FirstOrDefault();
+            var donHang = db.DonHangs_62134455.FirstOrDefault(x => x.id == id);
 
             return View(donHang);
+        }
+
+        [HttpPost]
+        public ActionResult XacNhanDonHang(int? id)
+        {
+            var donHang = db.DonHangs_62134455.FirstOrDefault(x => x.id == id);
+            donHang.TrangThai = 1; //Đã xác nhận
+            db.SaveChanges();
+            return View("ChiTietDonHang", donHang);
         }
     }
 }

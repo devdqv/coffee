@@ -130,6 +130,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GioHang_62134455Controller.cs" />
     <Compile Include="Controllers\Home_62134455Controller.cs" />
+    <Compile Include="Controllers\QuanTriDoanhThu_62134455Controller.cs" />
     <Compile Include="Controllers\QuanTriDonHang_62134455Controller.cs" />
     <Compile Include="Controllers\QuanTriSP_62134455Controller.cs" />
     <Compile Include="Controllers\SanPham_62134455Controller.cs" />
@@ -141,6 +142,8 @@
     <Compile Include="Models\DbContext_62134455.cs" />
     <Compile Include="Models\DonHangs_62134455.cs" />
     <Compile Include="Models\DtoEdit\ChiTietDonHangsDtoEdit_62134455.cs" />
+    <Compile Include="Models\DtoEdit\DictionaryObject.cs" />
+    <Compile Include="Models\DtoEdit\DoanhThu.cs" />
     <Compile Include="Models\DtoEdit\DonHangsDtoEdit_62134455.cs" />
     <Compile Include="Models\SanPhams_62134455.cs" />
     <Compile Include="Models\TaiKhoans_62134455.cs" />
@@ -339,6 +342,7 @@
     <Content Include="Views\Home_62134455\PopupDatMon.cshtml" />
     <Content Include="Views\QuanTriDonHang_62134455\Index.cshtml" />
     <Content Include="Views\QuanTriDonHang_62134455\ChiTietDonHang.cshtml" />
+    <Content Include="Views\QuanTriDoanhThu_62134455\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

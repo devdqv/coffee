@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutQuanTri.cshtml";
+}
+@using Coffee_62134455.Models.DtoEdit;
+@model List<DoanhThu>
+
+<div class="container mt-3">
+    <h2 class="mb-5">Báo cáo doanh thu</h2>
+    <div class="row mb-3">
+
+        <div class="col-3">
+
+            <form asp-action="Inventory" method="GET" asp-route-month="">
+                <div class="row mb-3" style="color:darkred">
+                    <span class="col-3">Tháng &nbsp;</span><span class="col-9">@Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text", DateTime.Now.Month), new { @class = "required form-control", @onchange = "this.form.submit()" })</span>
+                </div>
+                <div class="row" style="color:darkred">
+                    <span class="col-3">Năm &nbsp;</span><span class="col-9">@Html.DropDownList("Year", new SelectList(ViewBag.Years, "Value", "Text", DateTime.Now.Year), new { @class = "required form-control", @onchange = "this.form.submit()" })</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Sản phẩm</th>
+                <th>Doanh Thu</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var stt = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@{stt++;}@stt</td>
+                    <td>@item.TenSanPham</td>
+                    <td>@string.Format("{0:#,###}", item.TongTien)</td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+

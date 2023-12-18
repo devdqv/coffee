@@ -239,7 +239,7 @@
                             <td>1</td>
                             <td><img src="/Assets/images/@item.HinhAnh" height="30" width="30"> @item.TenSanPham</td>
                             <td>@item.DanhMucs_62134455.TenDanhMuc</td>
-                            <td>@item.Gia</td>
+                            <td>@string.Format("{0:#,###}", @item.Gia) ₫</td>
                             <td>
                                 <a href="#" class="view" title="View" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-eye"></i></a>
                                 <a href="#" class="edit" title="Edit" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-edit"></i></a>

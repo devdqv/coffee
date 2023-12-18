@@ -24,6 +24,64 @@
             })
         })
 
+        var id_sanpham = 0;
+        
+
+        $('html').on('click', '.btn-try-now', function (e) {
+            e.preventDefault();
+            id_sanpham = $(this).data('id');
+            $.get("/Home_62134455/PopupDatMon", { id: $(this).data('id') }, function (html) {
+                openModal("Đặt sản phẩm", html, "frm-dat-mon", "Thêm vào giỏ");
+            })
+        })
+
+
+
+        //click nút Thêm vào giỏ
+        $('#modal').on('click', '.btn-submit', function (e) {
+            $(this).addClass("disabled");
+            e.preventDefault();
+            if (!validateModal()) {
+                $(this).removeClass("disabled");
+                return false;
+            }
+
+            var formData = new FormData();
+
+            var SoLuong = $("input[name='SoLuong']").val();
+            formData.append("SoLuong", SoLuong);
+
+            var Size = $("input[name='Size']:checked").val() ?? "";
+            formData.append("Size", Size);
+
+            var SoLuong = $("input[name='SoLuong']").val();
+            formData.append("SoLuong", SoLuong);
+
+            var GhiChu = $("input[name='GhiChu']").val();
+            formData.append("GhiChu", GhiChu);
+
+            formData.append("id_sanpham", id_sanpham);
+
+            $.ajax({
+                method: 'POST',
+                url: "/Home_62134455/ThemVaoGio",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    if (res.status == 1) {
+                        ToastMessage(res.message);
+                        $("#modal").modal("hide");
+                    }
+                    else {
+                        ToastMessage(res.message, false);
+                    }
+                    $('#modal .btn-submit').removeClass("disabled")
+                }
+            });
+        })
+
+
         if ('@id_danhmuc' != '0') {
             $.get('/Home_62134455/SanPhamTheoDanhMuc', { id_danhmuc: '@id_danhmuc' }, function (html) {
                 $('#san-pham-theo-danh-muc').html(html);
@@ -42,7 +100,7 @@
                     <span class="subheading">Giới thiệu</span>
                     <h2 class="mb-4">Coffee Blend - Tự hào thương hiệu Việt</h2>
                     <p class="mb-4 mb-md-5">Là một thành viên của Tập đoàn KIDO, Coffee Blend đang kế thừa và sở hữu nhiều lợi thế với mong muốn mang sản phẩm cao cấp nhất đến khách hàng không chỉ qua hương vị đầy trải nghiệm, mà còn thưởng thức cả câu chuyện đầy tự hào về văn hoá và con người Việt Nam.</p>
-                    <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Đặt ngay</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Xem Menu</a></p>
+                    <p> <a href="/thuc-don" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Xem Menu</a></p>
                 </div>
 
             </div>
@@ -58,7 +116,7 @@
                     <span class="subheading">Sứ mệnh</span>
                     <h2 class="mb-4">Mang niềm tin đến khách hàng</h2>
                     <p class="mb-4 mb-md-5">Coffee Blend mong muốn mang đến cho khách hàng các món Trà và Cà Phê được biến tấu đặc biệt từ những nguyên liệu thuần Việt và kiểm soát chặt chẽ từ khâu sản xuất đến thành phẩm bởi đội ngũ phát triển đầu ngành.</p>
-                    <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Đặt ngay</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Xem Menu</a></p>
+                    <p><a href="/thuc-don" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Xem Menu</a></p>
                 </div>
 
             </div>
@@ -102,7 +160,7 @@
                             <h3><a href="#">@item.TenSanPham</a></h3>
                             <p>@item.MoTa</p>
                             <p class="price"><span>@string.Format("{0:#,###}", item.Gia) ₫</span></p>
-                            <p><a href="#" class="btn btn-primary btn-outline-primary">Đặt ngay</a></p>
+                            <p><a href="#" data-id="@item.id" class="btn btn-primary btn-outline-primary btn-try-now">Đặt ngay</a></p>
                         </div>
                     </div>
                 </div>
