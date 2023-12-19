@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Coffee_62134455.Controllers
 {
-    public class QuanTriDoanhThu_62134455Controller : Controller
+    public class QuanTriDoanhThu_62134455Controller : Authen_62134455Controller
     {
         //DbContext_62134455 db = new DbContext_62134455();
         // GET: QuanTriDoanhThu_62134455

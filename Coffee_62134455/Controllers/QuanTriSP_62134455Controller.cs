@@ -10,7 +10,7 @@ using PagedList;
 
 namespace Coffee_62134455.Controllers
 {
-    public class QuanTriSP_62134455Controller : Controller
+    public class QuanTriSP_62134455Controller : Authen_62134455Controller
     {
         // GET: QuanTriSP_62134455
         public ActionResult DanhSachSanPham(int? page, int? pageSize = 20)

@@ -13,7 +13,12 @@ namespace Coffee_62134455
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            
+
+            routes.MapRoute(
+              name: "login",
+              url: "login",
+              defaults: new { controller = "Login_62134455", action = "FormDangNhap", id = UrlParameter.Optional }
+          );
 
             routes.MapRoute(
               name: "thuc-don",

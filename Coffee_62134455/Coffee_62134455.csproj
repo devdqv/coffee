@@ -135,8 +135,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Authen_62134455Controller.cs" />
     <Compile Include="Controllers\GioHang_62134455Controller.cs" />
     <Compile Include="Controllers\Home_62134455Controller.cs" />
+    <Compile Include="Controllers\Login_62134455Controller.cs" />
     <Compile Include="Controllers\QuanTriDoanhThu_62134455Controller.cs" />
     <Compile Include="Controllers\QuanTriDonHang_62134455Controller.cs" />
     <Compile Include="Controllers\QuanTriNhanVien_62134455Controller.cs" />
@@ -357,9 +359,11 @@
     <Content Include="Views\Home_62134455\_NavBar.cshtml" />
     <Content Include="Views\QuanTriNhanVien_62134455\Index.cshtml" />
     <Content Include="Views\QuanTriNhanVien_62134455\ThemNhanVien.cshtml" />
+    <Content Include="Views\Login_62134455\FormDangNhap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Authen\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

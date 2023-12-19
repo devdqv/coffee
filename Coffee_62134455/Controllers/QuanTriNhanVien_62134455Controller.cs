@@ -10,7 +10,7 @@ using PagedList;
 
 namespace Coffee_62134455.Controllers
 {
-    public class QuanTriNhanVien_62134455Controller : Controller
+    public class QuanTriNhanVien_62134455Controller : Authen_62134455Controller
     {
         DbContext_62134455 db = new DbContext_62134455();
         // GET: QuanTriNhanVien_62134455
