@@ -81,3 +81,7 @@ F:\SaleCoffe\Coffee_62134455\Coffee_62134455\obj\Debug\Coffee_62134455.csproj.Co
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\obj\Debug\Coffee_62134455.csproj.CopyComplete
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\obj\Debug\Coffee_62134455.dll
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\obj\Debug\Coffee_62134455.pdb
+F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\PagedList.dll
+F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\PagedList.Mvc.dll
+F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\PagedList.xml
+F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\PagedList.Mvc.xml

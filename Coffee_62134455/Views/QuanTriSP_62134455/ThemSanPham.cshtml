@@ -41,10 +41,9 @@
 
         //click nút Lưu lại để lưu danh mục đồ uống
         $('#modal .btn-submit').click(function (e) {
-            $(this).prop("disabled", true);
+            
             e.preventDefault();
             if (!validateModal()) {
-                $(this).removeClass("disabled");
                 return false;
             }
 
@@ -52,7 +51,7 @@
 
             var TenDanhMuc = $("input[name='TenDanhMuc']").val();
             formData.append("TenDanhMuc", TenDanhMuc);
-
+            $(this).prop("disabled", true);
             $.ajax({
                 method: 'POST',
                 url: "/QuanTriSP_62134455/ThemDanhMuc",
@@ -64,7 +63,6 @@
                         $(this).removeClass("disabled");
                         ToastMessage(res.message);
                         setTimeout(() => {
-                            $('#modal .btn-close').click();
 
                             var newOption = $('<option value="' + res.data.id + '">' + res.data.TenDanhMuc + '</option>');
                             $('#TenDanhMuc').append(newOption);
@@ -72,16 +70,16 @@
                         }, 200)
                     }
                     else {
-                        $("#submit").removeClass("disabled");
                         ToastMessage(res.message, false);
                     }
+                    $('#modal .btn-submit')
                 }
             });
         })
 
         $('.btn-add-product').click(function (e) {
             e.preventDefault();
-            $(this).prop("disabled", true);
+            
             if (!validate()) {
                 $(this).removeClass("disabled");
                 return false;
@@ -125,6 +123,7 @@
             formData.append("id_danhmuc", id_danhmuc);
             formData.append("id", "@Model.id");
 
+            $(this).prop("disabled", true);
             $.ajax({
                 method: 'POST',
                 url: "/QuanTriSP_62134455/ThemSanPham",

@@ -1,10 +1,12 @@
-﻿using Coffee_62134455.Models;
+﻿using Coffee_62134455.Helper;
+using Coffee_62134455.Models;
 using Coffee_62134455.Models.DtoEdit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace Coffee_62134455.Controllers
 {
@@ -12,10 +14,11 @@ namespace Coffee_62134455.Controllers
     {
         DbContext_62134455 db = new DbContext_62134455();
         // GET: QuanTriNhanVien_62134455
-        public ActionResult Index()
+        public ActionResult Index(int? page, int? pageSize = 20)
         {
+            if (page == null) page = 1;
             var taikhoans = db.TaiKhoans_62134455.ToList();
-            return View(taikhoans);
+            return View(taikhoans.ToPagedList(page.Value, pageSize.Value));
         }
 
         public ActionResult ThemNhanVien()
@@ -31,7 +34,8 @@ namespace Coffee_62134455.Controllers
         [HttpPost]
         public ActionResult ThemNhanVien(TaiKhoans_62134455 taikhoan)
         {
-            taikhoan.NgayTao =DateTime.Now; 
+            taikhoan.NgayTao =DateTime.Now;
+            taikhoan.Password = MD5Tool.MD5Hash(taikhoan.Password);
             db.TaiKhoans_62134455.Add(taikhoan);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -4,24 +4,23 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
-using System.Web.Services.Description;
+using PagedList;
 
 namespace Coffee_62134455.Controllers
 {
     public class QuanTriSP_62134455Controller : Controller
     {
         // GET: QuanTriSP_62134455
-        public ActionResult DanhSachSanPham()
+        public ActionResult DanhSachSanPham(int? page, int? pageSize = 20)
         {
             using (var db = new DbContext_62134455())
             {
-
+                if (page == null) page = 1;
                 var lstSP = db.SanPhams_62134455.Include(x => x.DanhMucs_62134455).ToList();
 
-                return View(lstSP);
+                return View(lstSP.ToPagedList(page.Value, pageSize.Value));
             }
         }
 

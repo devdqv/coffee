@@ -4,9 +4,49 @@
     Layout = "~/Views/Shared/_LayoutQuanTri.cshtml";
 }
 
-@model List<Coffee_62134455.Models.DonHangs_62134455>
+
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Coffee_62134455.Models.DonHangs_62134455>
 
 <style>
+    .pagination {
+        float: right;
+        margin: 0 0 5px;
+    }
+
+        .pagination li a {
+            border: none;
+            font-size: 95%;
+            width: 30px;
+            height: 30px;
+            color: #999;
+            margin: 0 2px;
+            line-height: 30px;
+            border-radius: 30px !important;
+            text-align: center;
+            padding: 10px 12px;
+        }
+
+            .pagination li a:hover {
+                color: #666;
+            }
+
+        .pagination li.active a {
+            background: #03A9F4;
+        }
+
+            .pagination li.active a:hover {
+                background: #0397d6;
+            }
+
+        .pagination li.disabled i {
+            color: #ccc;
+        }
+
+        .pagination li i {
+            font-size: 16px;
+            padding-top: 6px
+        }
     .value-text {
         color: darkcyan;
         font-weight: 700;
@@ -56,4 +96,8 @@
     </div>
     <hr />
 }
+<div class="clearfix">
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page }))
+</div>
 

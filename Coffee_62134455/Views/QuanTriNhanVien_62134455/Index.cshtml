@@ -5,7 +5,9 @@
 }
 
 @using Coffee_62134455.Models.DtoEdit;
-@model List<Coffee_62134455.Models.TaiKhoans_62134455>
+
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Coffee_62134455.Models.TaiKhoans_62134455>
 
 
 <!DOCTYPE html>
@@ -128,7 +130,8 @@
                 line-height: 30px;
                 border-radius: 30px !important;
                 text-align: center;
-                padding: 0;
+                padding: 10px 12px;
+
             }
 
                 .pagination li a:hover {
@@ -203,7 +206,7 @@
                 });
             })
 
-            
+
 
         })
     </script>
@@ -265,16 +268,10 @@
                     </tbody>
                 </table>
                 <div class="clearfix">
-                    @*<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>*@
-                    @*<ul class="pagination">
-                            <li class="page-item disabled"><a href="#"><i class="icon icon-first_page"></i></a></li>
-                            <li class="page-item"><a href="#" class="page-link">1</a></li>
-                            <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                            <li class="page-item"><a href="#" class="page-link">4</a></li>
-                            <li class="page-item"><a href="#" class="page-link">5</a></li>
-                            <li class="page-item"><a href="#" class="page-link"><i class="icon icon-last_page"></i></a></li>
-                        </ul>*@
+                    <div>
+                        @Html.PagedListPager(Model, page => Url.Action("Index",
+                            new { page }))
+                    </div>
                 </div>
             </div>
         </div>

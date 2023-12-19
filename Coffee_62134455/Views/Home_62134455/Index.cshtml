@@ -39,10 +39,9 @@
 
         //click nút Thêm vào giỏ
         $('#modal').on('click', '.btn-submit', function (e) {
-            $(this).prop("disabled", true);
+           
             e.preventDefault();
             if (!validateModal()) {
-                $(this).removeClass("disabled");
                 return false;
             }
 
@@ -61,7 +60,7 @@
             formData.append("GhiChu", GhiChu);
 
             formData.append("id_sanpham", id_sanpham);
-
+            $(this).prop("disabled", true);
             $.ajax({
                 method: 'POST',
                 url: "/Home_62134455/ThemVaoGio",
@@ -77,7 +76,7 @@
                     else {
                         ToastMessage(res.message, false);
                     }
-                    $('#modal .btn-submit').removeClass("disabled")
+                    $('#modal .btn-submit').prop("disabled", false);
                 }
             });
         })

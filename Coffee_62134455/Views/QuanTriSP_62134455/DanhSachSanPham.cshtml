@@ -5,7 +5,8 @@
 
 }
 
-@model List<Coffee_62134455.Models.SanPhams_62134455>
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Coffee_62134455.Models.SanPhams_62134455>
 
 
 
@@ -122,14 +123,14 @@
             .pagination li a {
                 border: none;
                 font-size: 95%;
-                width: 30px;
+                width: 50px;
                 height: 30px;
                 color: #999;
                 margin: 0 2px;
                 line-height: 30px;
                 border-radius: 30px !important;
                 text-align: center;
-                padding: 0;
+                padding: 10px;
             }
 
                 .pagination li a:hover {
@@ -175,7 +176,7 @@
                     content: 'Xóa sản phẩm này ?',
                     buttons: {
                         Đóng: function () {
-                            
+
                         },
                         Xóa: {
                             text: 'Xóa',
@@ -235,31 +236,26 @@
                         @foreach (var item in Model)
                         {
 
-                        <tr class="row_item">
-                            <td>1</td>
-                            <td><img src="/Assets/images/@item.HinhAnh" height="30" width="30"> @item.TenSanPham</td>
-                            <td>@item.DanhMucs_62134455.TenDanhMuc</td>
-                            <td>@string.Format("{0:#,###}", @item.Gia) ₫</td>
-                            <td>
-                                <a href="#" class="view" title="View" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-eye"></i></a>
-                                <a href="#" class="edit" title="Edit" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-edit"></i></a>
-                                <a href="#" class="delete" title="Delete" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-remove"></i></a>
-                            </td>
-                        </tr>
+                            <tr class="row_item">
+                                <td>1</td>
+                                <td><img src="/Assets/images/@item.HinhAnh" height="30" width="30"> @item.TenSanPham</td>
+                                <td>@item.DanhMucs_62134455.TenDanhMuc</td>
+                                <td>@string.Format("{0:#,###}", @item.Gia) ₫</td>
+                                <td>
+                                    <a href="#" class="view" title="View" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-eye"></i></a>
+                                    <a href="#" class="edit" title="Edit" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-edit"></i></a>
+                                    <a href="#" class="delete" title="Delete" data-id="@item.id" data-toggle="tooltip"><i class="icon icon-remove"></i></a>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
                 <div class="clearfix">
                     @*<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>*@
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#"><i class="icon icon-first_page"></i></a></li>
-                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link"><i class="icon icon-last_page"></i></a></li>
-                    </ul>
+                    <!-- Thêm phân trang vào -->
+
+                    @Html.PagedListPager(Model, page => Url.Action("DanhSachSanPham",
+                        new { page }))
                 </div>
             </div>
         </div>
