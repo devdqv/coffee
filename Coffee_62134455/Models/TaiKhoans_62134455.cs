@@ -1,7 +1,8 @@
-namespace Coffee_62134455.Models
+﻿namespace Coffee_62134455.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -11,14 +12,17 @@ namespace Coffee_62134455.Models
         public int id { get; set; }
 
         [StringLength(50)]
+        [DisplayName("Tên người dùng")]
         public string TenNguoiDung { get; set; }
 
         [StringLength(50)]
+        [DisplayName("Tên đăng nhập")]
         public string Username { get; set; }
 
         [StringLength(100)]
+        [DisplayName("Mật khẩu")]
         public string Password { get; set; }
-
+        [DisplayName("Vai trò")]
         public int? VaiTro { get; set; }
 
         public DateTime? NgayTao { get; set; }

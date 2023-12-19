@@ -13,11 +13,19 @@ namespace Coffee_62134455
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            
+
             routes.MapRoute(
               name: "thuc-don",
               url: "thuc-don",
               defaults: new { controller = "Home_62134455", action = "ThucDon", id = UrlParameter.Optional }
           );
+
+            routes.MapRoute(
+             name: "nhan-vien",
+             url: "nhan-vien",
+             defaults: new { controller = "QuanTriNhanVien_62134455", action = "Index", id = UrlParameter.Optional }
+         );
 
             routes.MapRoute(
              name: "thong-tin-san-pham",

@@ -39,7 +39,7 @@
 
         //click nút Thêm vào giỏ
         $('#modal').on('click', '.btn-submit', function (e) {
-            $(this).addClass("disabled");
+            $(this).prop("disabled", true);
             e.preventDefault();
             if (!validateModal()) {
                 $(this).removeClass("disabled");

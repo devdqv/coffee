@@ -41,7 +41,7 @@
 
         //click nút Lưu lại để lưu danh mục đồ uống
         $('#modal .btn-submit').click(function (e) {
-            $(this).addClass("disabled");
+            $(this).prop("disabled", true);
             e.preventDefault();
             if (!validateModal()) {
                 $(this).removeClass("disabled");
@@ -81,7 +81,7 @@
 
         $('.btn-add-product').click(function (e) {
             e.preventDefault();
-            $(this).addClass("disabled");
+            $(this).prop("disabled", true);
             if (!validate()) {
                 $(this).removeClass("disabled");
                 return false;

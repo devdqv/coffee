@@ -79,10 +79,13 @@ function validateModal() {
 
 
 
-function openModal(title, data, classFrom = "default", textAction= "Lưu lại") {
+function openModal(title, data, classFrom = "default", textAction= "Lưu lại", hiddenFooter = false) {
     $(".modal .modal-title").text(title);
     $(".modal .modal-body").html(data);
-    $(".modal .btn-action-modal").html(textAction);
+    $(".modal .btn-submit").html(textAction);
+    if (hiddenFooter) {
+        $('.modal .modal-footer').addClass('hidden');
+    }
     $(".modal").modal('show');
 }
 

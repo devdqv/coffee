@@ -51,6 +51,8 @@ F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\roslyn\vbc.rsp
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\roslyn\VBCSCompiler.exe
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\roslyn\VBCSCompiler.exe.config
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\Antlr3.Runtime.dll
+F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\EntityFramework.dll
+F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\EntityFramework.SqlServer.dll
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\Microsoft.Web.Infrastructure.dll
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\Newtonsoft.Json.dll
@@ -62,6 +64,8 @@ F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\System.Web.WebPages.Deployment.
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\System.Web.WebPages.dll
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\System.Web.WebPages.Razor.dll
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\WebGrease.dll
+F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\EntityFramework.xml
+F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\EntityFramework.SqlServer.xml
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\System.Web.Helpers.xml
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\System.Web.Mvc.xml
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\System.Web.Optimization.xml
@@ -77,7 +81,3 @@ F:\SaleCoffe\Coffee_62134455\Coffee_62134455\obj\Debug\Coffee_62134455.csproj.Co
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\obj\Debug\Coffee_62134455.csproj.CopyComplete
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\obj\Debug\Coffee_62134455.dll
 F:\SaleCoffe\Coffee_62134455\Coffee_62134455\obj\Debug\Coffee_62134455.pdb
-F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\EntityFramework.dll
-F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\EntityFramework.SqlServer.dll
-F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\EntityFramework.xml
-F:\SaleCoffe\Coffee_62134455\Coffee_62134455\bin\EntityFramework.SqlServer.xml
