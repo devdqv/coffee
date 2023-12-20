@@ -12,9 +12,9 @@
             {
                 <div class="col-md-4 text-center">
                     <div class="menu-wrap">
-                        <a href="#" class="menu-img img mb-4" style="background-image: url(/Assets/images/@item.HinhAnh);"></a>
+                        <a href="/thong-tin-san-pham?id=@item.id" class="menu-img img mb-4" style="background-image: url(/Assets/images/@item.HinhAnh);"></a>
                         <div class="text">
-                            <h3><a href="#">@item.TenSanPham</a></h3>
+                            <h3><a href="/thong-tin-san-pham?id=@item.id">@item.TenSanPham</a></h3>
                             <p>@item.MoTa</p>
                             <p class="price"><span>@string.Format("{0:#,###}", item.Gia) ₫</span></p>
                             <p><a href="#" data-id="@item.id" class="btn btn-primary btn-outline-primary btn-try-now">Đặt ngay</a></p>

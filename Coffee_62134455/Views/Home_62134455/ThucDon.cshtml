@@ -5,6 +5,7 @@
 @using Coffee_62134455.Models
 
 
+
 <script>
     $(document).ready(function () {
         var id_sanpham = 0;
@@ -81,7 +82,7 @@
                             <div class="img" style="background-image: url(/Assets/images/@sp.HinhAnh);"></div>
                             <div class="desc pl-3 pr-3">
                                 <div class="d-flex text align-items-center">
-                                    <h3><span>@sp.TenSanPham</span></h3>
+                                    <h3><span><a href="/thong-tin-san-pham?id=@item.id">@sp.TenSanPham</a></span></h3>
                                     <span class="price">@string.Format("{0:#,###}", sp.Gia) ₫</span>
                                 </div>
                                 <div class="d-block">

@@ -17,7 +17,7 @@
         $('.remove-item').click(function (e) {
             e.preventDefault();
             var row_item = $(this); //Lấy dữ liệu dòng cần xóa
-            $.post("/GioHang_62134455/CapNhatSanPhamTrongGio", { id_sanpham: $(row_item).data('id'), actionEdit : "remove" }, function (res) {
+            $.post("/GioHang_62134455/CapNhatSanPhamTrongGio", { id_sanpham: $(row_item).data('id'), actionEdit: "remove" }, function (res) {
                 $(row_item).closest('.row_item').remove(); //Thực hiện xóa dòng
                 $('#SoLuongSanPhamTrongGio').html(res.total);
                 //Thực tiền tính lại tiền tổng hóa đơn
@@ -34,6 +34,9 @@
             console.log($("form").serialize());
             $.post('/GioHang_62134455/DatHang', $("form").serialize(), function (res) {
                 ToastMessage(res.message, res.status == 1 ? true : false);
+                setTimeout(() => {
+                    location.reload();
+                }, 500)
             })
         })
 
@@ -45,7 +48,7 @@
                 $('input[name="SoLuong"][data-id="' + $(this).data('id') + '"]').val(soluong + 1);
 
                 var row_item = $(this); //Lấy dữ liệu dòng cần xóa
-                $.post("/GioHang_62134455/CapNhatSanPhamTrongGio", { id_sanpham: $(row_item).data('id'), actionEdit: "changeQuantity", SoLuong: soluong+1 }, function (res) {
+                $.post("/GioHang_62134455/CapNhatSanPhamTrongGio", { id_sanpham: $(row_item).data('id'), actionEdit: "changeQuantity", SoLuong: soluong + 1 }, function (res) {
                     //Thực tiền tính lại tiền tổng hóa đơn
                     $('td[name="ThanhTien"][data-id="' + $(row_item).data('id') + '"]').html(res.thanhtien);
                     $('.TongTienHoaDon').html(res.tongtien);
@@ -59,7 +62,7 @@
             e.preventDefault();
             let soluong = Number($('input[name="SoLuong"][data-id="' + $(this).data('id') + '"]').val());
             if (soluong && soluong > 1) {
-                $('input[name="SoLuong"][data-id="' + $(this).data('id') + '"]').val(soluong - 1); 
+                $('input[name="SoLuong"][data-id="' + $(this).data('id') + '"]').val(soluong - 1);
 
                 var row_item = $(this); //Lấy dữ liệu dòng cần xóa
                 $.post("/GioHang_62134455/CapNhatSanPhamTrongGio", { id_sanpham: $(row_item).data('id'), actionEdit: "changeQuantity", SoLuong: soluong - 1 }, function (res) {
@@ -113,9 +116,9 @@
 
                                         <td class="image-prod"><div class="img" width="30" style="background-image:url(/Assets/images/@item.HinhAnh);"></div></td>
 
-                                        <td class="">
+                                        <td class="a">
                                             <h5>@item.TenSanPham</h5>
-                                            <p>@item.MoTa</p>
+                                            @*<p>@item.MoTa</p>*@
                                         </td>
 
                                         <td class="">@string.Format("{0:#,###}", item.DonGia) ₫</td>
@@ -182,7 +185,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="GhiChu">Lưu ý cho đơn hàng</label>
-                                    <input name="GhiChu" type="text" class="form-control" placeholder="">
+                                    <input name="GhiChuDonHang" type="text" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="w-100"></div>

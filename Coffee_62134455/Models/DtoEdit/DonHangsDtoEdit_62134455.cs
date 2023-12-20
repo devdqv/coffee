@@ -14,5 +14,6 @@ namespace Coffee_62134455.Models.DtoEdit
             ChiTietDonHangsDtoEdit_62134455 = new HashSet<ChiTietDonHangsDtoEdit_62134455>();
         }
         public virtual ICollection<ChiTietDonHangsDtoEdit_62134455> ChiTietDonHangsDtoEdit_62134455 { get; set; }
+        public string GhiChuDonHang { get; set; }
     }
 }

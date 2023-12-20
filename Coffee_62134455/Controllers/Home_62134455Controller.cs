@@ -82,7 +82,7 @@ namespace Coffee_62134455.Controllers
                 sp = db.SanPhams_62134455.FirstOrDefault(x => x.id == model.id_sanpham);
                 model.DonGia = sp.Gia;
                 model.TenSanPham = sp.TenSanPham;
-                model.TenSanPham = sp.MoTa;
+                model.MoTa = sp.MoTa;
                 model.HinhAnh = sp.HinhAnh;
 
                 //Nếu là sản phẩm thêm vào giỏ đầu tiên

@@ -37,7 +37,7 @@ namespace Coffee_62134455.Controllers
                 {
                     donhang.ChiTietDonHangsDtoEdit_62134455.Remove(itemDb);
                 }
-                else if(item.actionEdit == "changeQuantity")
+                else if (item.actionEdit == "changeQuantity")
                 {
                     var chitietDH = donhang.ChiTietDonHangsDtoEdit_62134455.FirstOrDefault(x => x.id_sanpham == item.id_sanpham);
                     chitietDH.SoLuong = item.SoLuong;
@@ -51,10 +51,12 @@ namespace Coffee_62134455.Controllers
                 Session["donhang"] = donhang;
                 var tongtienS = donhang.ChiTietDonHangsDtoEdit_62134455.Sum(x => x.DonGia * x.SoLuong);
                 var phivanchuyenS = tongtienS == 0 ? 0 : tongtienS > 300000 ? 0 : 30000;
-                return Json(new { tongtien = string.Format("{0:#,###} ₫", tongtienS), 
-                    phivanchuyen = (tongtienS != 0 && phivanchuyenS == 0)? "Miễn phí":string.Format("{0:#,###} ₫", phivanchuyenS), 
+                return Json(new
+                {
+                    tongtien = string.Format("{0:#,###} ₫", tongtienS),
+                    phivanchuyen = (tongtienS != 0 && phivanchuyenS == 0) ? "Miễn phí" : string.Format("{0:#,###} ₫", phivanchuyenS),
                     sotienphaitra = string.Format("{0:#,###} ₫", tongtienS + phivanchuyenS),
-                    thanhtien= string.Format("{0:#,###} ₫", ThanhTien),
+                    thanhtien = string.Format("{0:#,###} ₫", ThanhTien),
                     total = donhang.ChiTietDonHangsDtoEdit_62134455.Count
                 });
             }
@@ -69,7 +71,7 @@ namespace Coffee_62134455.Controllers
         public ActionResult DatHang(DonHangsDtoEdit_62134455 data)
         {
             var donhangDb = new DonHangs_62134455();
-            
+
             if (Session["donhang"] != null)
             {
                 var donhang = Session["donhang"] as DonHangsDtoEdit_62134455;
@@ -78,16 +80,18 @@ namespace Coffee_62134455.Controllers
                 donhangDb.DiaChiNhanHang = data.DiaChiNhanHang;
                 donhangDb.SDT = data.SDT;
                 donhangDb.TenKhachHang = data.TenKhachHang;
+                donhangDb.GhiChu = data.GhiChuDonHang;
                 foreach (var item in donhang.ChiTietDonHangsDtoEdit_62134455)
                 {
                     ChiTietDonHangs_62134455 itemDb = JsonConvert.DeserializeObject<ChiTietDonHangs_62134455>(JsonConvert.SerializeObject(item));
                     donhangDb.ChiTietDonHangs_62134455.Add(itemDb);
                 }
-                
-                    db.DonHangs_62134455.Add(donhangDb);
-                    db.SaveChanges();
-                     
-                    
+
+                db.DonHangs_62134455.Add(donhangDb);
+                db.SaveChanges();
+
+                Session["donhang"] = null;
+
             }
             else
             {

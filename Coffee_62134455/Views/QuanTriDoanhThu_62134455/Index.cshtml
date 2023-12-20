@@ -35,6 +35,7 @@
         <tbody>
             @{
                 var stt = 0;
+                decimal tongdoanhthu = 0;
             }
             @foreach (var item in Model)
             {
@@ -43,10 +44,23 @@
                     <td>@item.TenSanPham</td>
                     <td>@string.Format("{0:#,###}", item.TongTien) ₫</td>
                 </tr>
+                tongdoanhthu += item.TongTien;
             }
 
 
         </tbody>
     </table>
+    <div class="font-weight-bold red">
+        Tổng doanh thu tháng này:
+        @if (tongdoanhthu == 0)
+        {
+            <h3 style="color:green">0 ₫</h3>
+        }
+        else
+        {
+
+            <h3 style="color:green">@string.Format("{0:#,###}", tongdoanhthu) ₫</h3>
+        }
+    </div>
 </div>
 
