@@ -14,10 +14,11 @@ namespace Coffee_62134455.Controllers
     {
         DbContext_62134455 db = new DbContext_62134455();
         // GET: QuanTriNhanVien_62134455
-        public ActionResult Index(int? page, int? pageSize = 20)
+        public ActionResult Index(int? page, int? pageSize = 20, string search ="")
         {
             if (page == null) page = 1;
-            var taikhoans = db.TaiKhoans_62134455.ToList();
+            var taikhoans = db.TaiKhoans_62134455.Where(x=>x.TenNguoiDung.Contains(search) || x.Username.Contains(search)).ToList();
+            ViewBag.search= search;
             return View(taikhoans.ToPagedList(page.Value, pageSize.Value));
         }
 

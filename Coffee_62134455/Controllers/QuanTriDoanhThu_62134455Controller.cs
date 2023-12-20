@@ -13,7 +13,7 @@ namespace Coffee_62134455.Controllers
 {
     public class QuanTriDoanhThu_62134455Controller : Authen_62134455Controller
     {
-        //DbContext_62134455 db = new DbContext_62134455();
+        DbContext_62134455 db = new DbContext_62134455();
         // GET: QuanTriDoanhThu_62134455
         public ActionResult Index(int? Month, int? Year)
         {
@@ -34,12 +34,11 @@ namespace Coffee_62134455.Controllers
             ViewBag.Months = months;
             ViewBag.Years = years;
             List<DoanhThu> danhthu;
-            using (var db = new DbContext_62134455())
-            {
-                danhthu = db.Database.SqlQuery<DoanhThu>($"SELECT sp.id ,sp.TenSanPham , SUM(ct.SoLuong*ct.DonGia) as TongTien " +
-                   "FROM ChiTietDonHangs_62134455 ct join DonHangs_62134455 dh on ct.id_donhang = dh.id join SanPhams_62134455 sp on ct.id_sanpham=sp.id " +
-                   "where MONTH(dh.NgayDatHang) = @thang and YEAR(dh.NgayDatHang)= @nam group by sp.TenSanPham, sp.id", new SqlParameter("@thang", Month), new SqlParameter("@nam", Year)).ToList();
-            }
+
+            danhthu = db.Database.SqlQuery<DoanhThu>($"SELECT sp.id ,sp.TenSanPham , SUM(ct.SoLuong*ct.DonGia) as TongTien " +
+               "FROM ChiTietDonHangs_62134455 ct join DonHangs_62134455 dh on ct.id_donhang = dh.id join SanPhams_62134455 sp on ct.id_sanpham=sp.id " +
+               "where MONTH(dh.NgayDatHang) = @thang and YEAR(dh.NgayDatHang)= @nam group by sp.TenSanPham, sp.id", new SqlParameter("@thang", Month), new SqlParameter("@nam", Year)).ToList();
+
             return View(danhthu);
         }
     }

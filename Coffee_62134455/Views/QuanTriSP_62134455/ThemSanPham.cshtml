@@ -59,20 +59,21 @@
                 processData: false,
                 contentType: false,
                 success: function (res) {
+                    $(this).removeClass("disabled");
                     if (res.status == 1) {
-                        $(this).removeClass("disabled");
                         ToastMessage(res.message);
                         setTimeout(() => {
 
                             var newOption = $('<option value="' + res.data.id + '">' + res.data.TenDanhMuc + '</option>');
                             $('#TenDanhMuc').append(newOption);
                             $("#TenDanhMuc").val(res.data.id).change();
+                            $('#modal').modal('hide');
                         }, 200)
                     }
                     else {
                         ToastMessage(res.message, false);
                     }
-                    $('#modal .btn-submit')
+                    
                 }
             });
         })
@@ -135,8 +136,7 @@
                         ToastMessage(res.message)
                         setTimeout(() => {
                             location.href = "/QuanTriSP_62134455/ThemSanPham";
-
-                        }, 1000)
+                        }, 500)
                     }
                     else {
                         ToastMessage(res.message, false);
@@ -166,7 +166,7 @@
         <label for="inputEmail3" class="col-sm-2 col-form-label">Ảnh ( Tối đa 3MB <span class="red">*</span>)</label>
         <div class="col-sm-10">
             <div class="dropzone img-upload">
-                <input class="mb-1" id="img-product" style="display:none;" type='file' onchange="readURL(this);" />
+                <input class="mb-1" id="img-product" style="display:none;" type='file' accept="image/png, image/jpeg" onchange="readURL(this);" />
                 <div class="chooseImage" style="height:100px; width: 100px; border: 1px dotted black; border-radius:3px; cursor:pointer">
                     @if (Model.HinhAnh == null)
                     {

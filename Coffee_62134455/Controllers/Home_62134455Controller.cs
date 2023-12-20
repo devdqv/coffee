@@ -12,7 +12,7 @@ namespace Coffee_62134455.Controllers
 {
     public class Home_62134455Controller : Controller
     {
-
+        DbContext_62134455 db = new DbContext_62134455();
         [ChildActionOnly]
         public ActionResult NavBar()
         {
@@ -27,14 +27,12 @@ namespace Coffee_62134455.Controllers
 
         public ActionResult Index()
         {
-            using (var db = new DbContext_62134455())
-            {
-                //Lấy ra 4 sản phẩm bán chạy nhất
-                ViewBag.SPBanChayNhat = db.SanPhams_62134455.Take(4).Include(x => x.DanhMucs_62134455).ToList();
-                var danhMucs = db.DanhMucs_62134455.OrderBy(x => x.TenDanhMuc).ToList();
-                ViewBag.DanhMucSP = danhMucs;
-                ViewBag.FirstDanhMuc = danhMucs.FirstOrDefault();
-            }
+            //Lấy ra 4 sản phẩm bán chạy nhất
+            ViewBag.SPBanChayNhat = db.SanPhams_62134455.Include(x => x.DanhMucs_62134455).Take(4).ToList();
+            var danhMucs = db.DanhMucs_62134455.OrderBy(x => x.TenDanhMuc).ToList();
+            ViewBag.DanhMucSP = danhMucs;
+            ViewBag.FirstDanhMuc = danhMucs.FirstOrDefault();
+
             return View();
         }
 
@@ -46,21 +44,19 @@ namespace Coffee_62134455.Controllers
         public ActionResult SanPhamTheoDanhMuc(int? id_danhmuc)
         {
             List<SanPhams_62134455> listSanPham;
-            using (var db = new DbContext_62134455())
-            {
-                listSanPham = db.SanPhams_62134455.Take(4).Where(x => x.id_danhmuc == id_danhmuc).ToList();
-            }
+
+            listSanPham = db.SanPhams_62134455.Where(x => x.id_danhmuc == id_danhmuc).Take(4).ToList();
+
             return View(listSanPham);
         }
 
         public ActionResult ThucDon()
         {
 
-            using (var db = new DbContext_62134455())
-            {
-                ViewBag.listDanhMuc = db.DanhMucs_62134455.ToList();
-                ViewBag.listSanPham = db.SanPhams_62134455.ToList();
-            }
+
+            ViewBag.listDanhMuc = db.DanhMucs_62134455.ToList();
+            ViewBag.listSanPham = db.SanPhams_62134455.ToList();
+
 
             return View();
         }
@@ -68,10 +64,9 @@ namespace Coffee_62134455.Controllers
         public ActionResult PopupDatMon(int id)
         {
             SanPhams_62134455 sp;
-            using (var db = new DbContext_62134455())
-            {
-                sp = db.SanPhams_62134455.FirstOrDefault(x => x.id == id);
-            }
+
+            sp = db.SanPhams_62134455.FirstOrDefault(x => x.id == id);
+
             return View(sp);
         }
 
@@ -83,14 +78,13 @@ namespace Coffee_62134455.Controllers
 
                 //Lấy ra sp ứng với sp Khách hàng đặt
                 SanPhams_62134455 sp;
-                using (var db = new DbContext_62134455())
-                {
-                    sp = db.SanPhams_62134455.FirstOrDefault(x => x.id == model.id_sanpham);
-                    model.DonGia = sp.Gia;
-                    model.TenSanPham = sp.TenSanPham;
-                    model.TenSanPham = sp.MoTa;
-                    model.HinhAnh = sp.HinhAnh;
-                }
+
+                sp = db.SanPhams_62134455.FirstOrDefault(x => x.id == model.id_sanpham);
+                model.DonGia = sp.Gia;
+                model.TenSanPham = sp.TenSanPham;
+                model.TenSanPham = sp.MoTa;
+                model.HinhAnh = sp.HinhAnh;
+
                 //Nếu là sản phẩm thêm vào giỏ đầu tiên
                 if (Session["donhang"] == null)
                 {

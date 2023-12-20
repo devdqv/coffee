@@ -12,50 +12,48 @@ namespace Coffee_62134455.Controllers
 {
     public class QuanTriSP_62134455Controller : Authen_62134455Controller
     {
+        DbContext_62134455 db = new DbContext_62134455();
         // GET: QuanTriSP_62134455
-        public ActionResult DanhSachSanPham(int? page, int? pageSize = 20)
+        public ActionResult DanhSachSanPham(int? page, int? pageSize = 20, string search = "")
         {
-            using (var db = new DbContext_62134455())
-            {
-                if (page == null) page = 1;
-                var lstSP = db.SanPhams_62134455.Include(x => x.DanhMucs_62134455).ToList();
 
-                return View(lstSP.ToPagedList(page.Value, pageSize.Value));
-            }
+            if (page == null) page = 1;
+            var lstSP = db.SanPhams_62134455.Where(x=>x.TenSanPham.Contains(search)).ToList();
+            ViewBag.search = search;
+
+            return View(lstSP.ToPagedList(page.Value, pageSize.Value));
+
         }
 
         public ActionResult ThemSanPham(int? id)
         {
             SanPhams_62134455 sp;
-            using (var db = new DbContext_62134455())
+            if (id != null)
             {
-                if (id != null)
-                {
 
-                    //Mode sửa thì có id truyền vào
-                    sp = db.SanPhams_62134455.FirstOrDefault(x => x.id == id);
-                }
-                else
-                {
-                    sp = new SanPhams_62134455();
-                }
-                ViewBag.DanhMucs = db.DanhMucs_62134455.ToList();
+                //Mode sửa thì có id truyền vào
+                sp = db.SanPhams_62134455.FirstOrDefault(x => x.id == id);
             }
+            else
+            {
+                sp = new SanPhams_62134455();
+            }
+            ViewBag.DanhMucs = db.DanhMucs_62134455.ToList();
+
 
             return View(sp);
         }
         [HttpPost]
         public ActionResult XoaSanPham(int id)
         {
-            using (var db = new DbContext_62134455())
+
+            var obj = db.SanPhams_62134455.FirstOrDefault(x => x.id == id);
+            if (obj != null)
             {
-                var obj = db.SanPhams_62134455.FirstOrDefault(x => x.id == id);
-                if (obj != null)
-                {
-                    db.SanPhams_62134455.Remove(obj);
-                    db.SaveChanges();
-                }
+                db.SanPhams_62134455.Remove(obj);
+                db.SaveChanges();
             }
+
             return Json(new { status = 1, message = "Đã xóa sản phẩm thành công !" });
         }
 
@@ -89,32 +87,31 @@ namespace Coffee_62134455.Controllers
                 img.Save(filename);
             }
 
-            using (var db = new DbContext_62134455())
-            {
-                //Cập nhật 
-                if (sanPham.id != 0)
-                {
-                    var spUpdate = db.SanPhams_62134455.FirstOrDefault(x => x.id == sanPham.id);
-                    spUpdate.TenSanPham = sanPham.TenSanPham;
-                    spUpdate.Gia = sanPham.Gia;
-                    spUpdate.GhiChu = sanPham.GhiChu;
-                    spUpdate.Size = sanPham.Size;
-                    spUpdate.MoTa = sanPham.MoTa;
-                    spUpdate.id_danhmuc = sanPham.id_danhmuc;
-                    //Nếu có ảnh up mới thì cập nhật lại ảnh
-                    if (!string.IsNullOrEmpty(fileNameTemp))
-                    {
-                        spUpdate.HinhAnh = fileNameTemp;
-                    }
-                }
-                else
-                {
-                    sanPham.HinhAnh = fileNameTemp;
-                    db.SanPhams_62134455.Add(sanPham);
-                }
 
-                db.SaveChanges();
+            //Cập nhật 
+            if (sanPham.id != 0)
+            {
+                var spUpdate = db.SanPhams_62134455.FirstOrDefault(x => x.id == sanPham.id);
+                spUpdate.TenSanPham = sanPham.TenSanPham;
+                spUpdate.Gia = sanPham.Gia;
+                spUpdate.GhiChu = sanPham.GhiChu;
+                spUpdate.Size = sanPham.Size;
+                spUpdate.MoTa = sanPham.MoTa;
+                spUpdate.id_danhmuc = sanPham.id_danhmuc;
+                //Nếu có ảnh up mới thì cập nhật lại ảnh
+                if (!string.IsNullOrEmpty(fileNameTemp))
+                {
+                    spUpdate.HinhAnh = fileNameTemp;
+                }
             }
+            else
+            {
+                sanPham.HinhAnh = fileNameTemp;
+                db.SanPhams_62134455.Add(sanPham);
+            }
+
+            db.SaveChanges();
+
 
 
             return Json(new { status = 1, message = "Thêm mới sản phẩm thành công !", data = sanPham });
@@ -133,11 +130,10 @@ namespace Coffee_62134455.Controllers
         [HttpPost]
         public ActionResult ThemDanhMuc(DanhMucs_62134455 danhmuc)
         {
-            using (var db = new DbContext_62134455())
-            {
-                db.DanhMucs_62134455.Add(danhmuc);
-                db.SaveChanges();
-            }
+
+            db.DanhMucs_62134455.Add(danhmuc);
+            db.SaveChanges();
+
             return Json(new { status = 1, message = "Thêm mới danh mục thành công !", data = danhmuc });
         }
 

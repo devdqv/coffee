@@ -11,6 +11,8 @@ namespace Coffee_62134455.Controllers
 {
     public class GioHang_62134455Controller : Controller
     {
+
+        DbContext_62134455 db = new DbContext_62134455();
         // GET: GioHang_62134455
         public ActionResult Index()
         {
@@ -81,12 +83,10 @@ namespace Coffee_62134455.Controllers
                     ChiTietDonHangs_62134455 itemDb = JsonConvert.DeserializeObject<ChiTietDonHangs_62134455>(JsonConvert.SerializeObject(item));
                     donhangDb.ChiTietDonHangs_62134455.Add(itemDb);
                 }
-                using(var db = new DbContext_62134455())
-                {
+                
                     db.DonHangs_62134455.Add(donhangDb);
                     db.SaveChanges();
-                    Session["donhang"] = null;
-                }    
+                     
                     
             }
             else
