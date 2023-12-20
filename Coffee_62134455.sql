@@ -58,10 +58,17 @@ CREATE TABLE TaiKhoans_62134455(
 
 go
 
+INSERT INTO [dbo].[TaiKhoans_62134455]
+           ([TenNguoiDung]
+           ,[Username]
+           ,[Password]
+           ,[VaiTro])
+     VALUES(N'Quản Lý 1', 'admin', N'202cb962ac59075b964b07152d234b70', 0), -- pass: 123
+		   (N'User Name 1', 'username1', N'202cb962ac59075b964b07152d234b70', 1)
+GO
 
 
-
-select * from SanPhams_62134455
+select * from SanPhams_62134455 
 
 
 go
@@ -71,17 +78,24 @@ go
 select * from DonHangs_62134455
 go
 
-select * from ChiTietDonHangs_62134455
+select * from TaiKhoans_62134455
 
-delete DanhMucs_62134455
-go
-delete SanPhams_62134455
-go
-delete DonHangs_62134455
-go
-delete ChiTietDonHangs_62134455
-go
-delete TaiKhoans_62134455
+
+
+GO
+
+
+
+
+--delete DanhMucs_62134455
+--go
+--delete SanPhams_62134455
+--go
+--delete DonHangs_62134455
+--go
+--delete ChiTietDonHangs_62134455
+--go
+--delete TaiKhoans_62134455
 
 
 
