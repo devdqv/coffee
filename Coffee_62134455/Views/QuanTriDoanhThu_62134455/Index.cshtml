@@ -12,7 +12,7 @@
 
         <div class="col-3">
 
-            <form asp-action="Inventory" method="GET" asp-route-month="">
+            <form method="GET" >
                 <div class="row mb-3" style="color:darkred">
                     <span class="col-3">Tháng &nbsp;</span><span class="col-9">@Html.DropDownList("Month", new SelectList(ViewBag.Months, "Value", "Text", DateTime.Now.Month), new { @class = "required form-control", @onchange = "this.form.submit()" })</span>
                 </div>

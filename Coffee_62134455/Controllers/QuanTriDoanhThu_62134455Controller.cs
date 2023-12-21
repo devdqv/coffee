@@ -35,6 +35,7 @@ namespace Coffee_62134455.Controllers
             ViewBag.Years = years;
             List<DoanhThu> danhthu;
 
+            //Lấy doanh thu
             danhthu = db.Database.SqlQuery<DoanhThu>($"SELECT sp.id ,sp.TenSanPham , SUM(ct.SoLuong*ct.DonGia) as TongTien " +
                "FROM ChiTietDonHangs_62134455 ct join DonHangs_62134455 dh on ct.id_donhang = dh.id join SanPhams_62134455 sp on ct.id_sanpham=sp.id " +
                "where MONTH(dh.NgayDatHang) = @thang and YEAR(dh.NgayDatHang)= @nam group by sp.TenSanPham, sp.id", new SqlParameter("@thang", Month), new SqlParameter("@nam", Year)).ToList();

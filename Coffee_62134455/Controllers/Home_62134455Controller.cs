@@ -28,7 +28,7 @@ namespace Coffee_62134455.Controllers
         public ActionResult Index()
         {
             //Lấy ra 4 sản phẩm bán chạy nhất
-            ViewBag.SPBanChayNhat = db.SanPhams_62134455.Include(x => x.DanhMucs_62134455).Take(4).ToList();
+            ViewBag.SPBanChayNhat = db.SanPhams_62134455.Take(4).ToList();
             var danhMucs = db.DanhMucs_62134455.OrderBy(x => x.TenDanhMuc).ToList();
             ViewBag.DanhMucSP = danhMucs;
             ViewBag.FirstDanhMuc = danhMucs.FirstOrDefault();

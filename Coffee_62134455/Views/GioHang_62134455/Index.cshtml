@@ -31,12 +31,11 @@
             if (!validate()) {
                 return false;
             }
-            console.log($("form").serialize());
             $.post('/GioHang_62134455/DatHang', $("form").serialize(), function (res) {
                 ToastMessage(res.message, res.status == 1 ? true : false);
                 setTimeout(() => {
                     location.reload();
-                }, 500)
+                }, 1500)
             })
         })
 

@@ -167,7 +167,8 @@
     <script>
         $(document).ready(function () {
 
-            $('.btn-add-product').click(function () {
+            $('.btn-add-product').click(function (e) {
+                e.preventDefault()
                 location.href = "/QuanTriSP_62134455/ThemSanPham"
             })
 
