@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace Coffee_62134455.Helper
+namespace Coffee.Helper
 {
     public abstract class MD5Tool
     {

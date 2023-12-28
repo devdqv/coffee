@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "Thông tin sản phẩm";
+}
+
+@model Coffee.Models.SanPhams
+
+<script>
+    $(document).ready(function () {
+        $('.themSoLuong').click(function (e) {
+            e.preventDefault();
+            let soluong = Number($('input[name="SoLuong"][data-id="' + $(this).data('id') + '"]').val());
+            if (soluong) {
+
+                $('input[name="SoLuong"][data-id="' + $(this).data('id') + '"]').val(soluong + 1);
+
+            }
+
+        })
+        $('.giamSoLuong').click(function (e) {
+            e.preventDefault();
+            let soluong = Number($('input[name="SoLuong"][data-id="' + $(this).data('id') + '"]').val());
+            if (soluong && soluong > 1) {
+                $('input[name="SoLuong"][data-id="' + $(this).data('id') + '"]').val(soluong - 1);
+            }
+        })
+
+        //click nút Thêm vào giỏ
+        $('html').on('click', '.btn-add-card', function (e) {
+            e.preventDefault();
+            
+            var formData = new FormData();
+
+            var SoLuong = $("input[name='SoLuong']").val();
+            formData.append("SoLuong", SoLuong);
+
+            var Size = $("select[name='Size'] option:selected").val() ?? "";
+            formData.append("Size", Size);
+
+            formData.append("id_sanpham", $(this).data('id'));
+
+            $.ajax({
+                method: 'POST',
+                url: "/Home/ThemVaoGio",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    if (res.status == 1) {
+                        ToastMessage(res.message);
+                        $('#SoLuongSanPhamTrongGio').html(res.total);
+                        $("input[name='SoLuong']").val(1).change();
+                    }
+                    else {
+                        ToastMessage(res.message, false);
+                    }
+                }
+            });
+        })
+    })
+</script>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-5 ftco-animate">
+                <a href="~/Assets/images/@Model.HinhAnh" class="image-popup"><img src="~/Assets/images/@Model.HinhAnh" class="img-fluid" alt="@Model.TenSanPham"></a>
+            </div>
+            <div class="col-lg-6 product-details pl-md-5 ftco-animate">
+                <h3>@Model.TenSanPham</h3>
+                <p class="price"><span>@string.Format("{0:#,###}", Model.Gia) ₫</span></p>
+                <p>@Model.MoTa</p>
+                <div class="mt-4">Size</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group d-flex">
+
+                            <div class="select-wrap">
+                                <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                @*<select name="" id="" class="form-control">
+                            <option value="">Small</option>
+                            <option value="">Medium</option>
+                            <option value="">Large</option>
+                            <option value="">Extra Large</option>
+                        </select>*@
+                                @Html.DropDownList("Size", new SelectList(ViewBag.Sizes, "Text", "Text"), new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="input-group col-md-6 d-flex mb-3">
+                        <span class="input-group-btn mr-2">
+                            <button type="button" class="quantity-left-minus btn giamSoLuong" data-id="@Model.id" data-type="minus" data-field="">
+                                <i class="icon-minus"></i>
+                            </button>
+                        </span>
+                        <input type="text" id="quantity" name="SoLuong" data-id="@Model.id" class="form-control input-number" value="1" min="1" max="100">
+                        <span class="input-group-btn ml-2">
+                            <button type="button" class="quantity-right-plus btn themSoLuong" data-id="@Model.id" data-type="plus" data-field="">
+                                <i class="icon-plus"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <p><a href="#" data-id="@Model.id" class="btn btn-primary py-3 px-5 btn-add-card">Thêm vào giỏ</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+

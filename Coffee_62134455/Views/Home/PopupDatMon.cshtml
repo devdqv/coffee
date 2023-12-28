@@ -1,0 +1,104 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using Coffee.Models;
+@model SanPhams
+
+<style>
+    .form-control {
+        display: block !important;
+        font-family: none !important;
+        height: unset !important;
+        width: 100% !important;
+        padding: 0.375rem 0.75rem !important;
+        font-size: 1rem !important;
+        font-weight: 400 !important;
+        line-height: 1.5 !important;
+        color: #212529 !important;
+        background-color: #fff !important;
+        background-clip: padding-box !important;
+        border: 1px solid #ced4da !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+        border-radius: 0.25rem !important;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('.themSoLuong').click(function () {
+            $('#modal input[name="SoLuong"]').val(Number($('#modal input[name="SoLuong"]').val()) + 1);
+        })
+        $('.giamSoLuong').click(function () {
+            if ($('#modal input[name="SoLuong"]').val() > 1) {
+                $('#modal input[name="SoLuong"]').val(Number($('#modal input[name="SoLuong"]').val()) - 1);
+            }
+        })
+
+
+        $('#modal').on("click", '.choose-size', function () {
+            let val = $(this).val();
+            $('#modal .sizePreviewHeader').html(val);
+        })
+
+        
+        
+
+
+        //Binding size các cốc ra checkboox
+        var arrSizeModel = "@Model.Size";
+        var arSize = $(arrSizeModel.split(';')).each(function (index, val) {
+            if (val) {
+                if (index == 0) {
+                    $('#modal .sizePreviewHeader').html(val);
+                }
+                $('.block-size-product').append('<div class="col-3"> <div class="form-check"> ' +
+                    '<input class="form-check-input choose-size" type="radio" name="Size" ' + (index == 0 ? "checked": "") + ' value="' + val + '"/><label class="form-check-label">Size ' + val + '</label> </div> </div>')
+            }
+        });
+
+    })
+</script>
+<div class="row">
+    <div class="col-md-3">
+        <img src="/Assets/images/@Model.HinhAnh" width="100" height="100" />
+    </div>
+    <div class="col-md-9">
+        <div class="font-weight-bold">@Model.TenSanPham</div>
+        <div>Giá: @string.Format("{0:#,###} ₫", Model.Gia)</div>
+        <p>Size <span class="sizePreviewHeader" style="color:black;"></span></p>
+    </div>
+</div>
+<hr />
+<div class="row mt-3">
+    <div class="col-12">
+
+        <div class="font-weight-bold">Mô tả</div>
+        <p>
+            @Model.MoTa
+        </p>
+    </div>
+</div>
+<hr />
+<div class="row block-size-product">
+
+</div>
+<div class="row mt-3">
+    <div class="d-flex" style="padding-left:15px;">Số lượng </div>
+    <div class="d-flex ml-3"><input type="number" name="SoLuong" value="1" class="form-control" readonly min="1" max="100"></div>
+    <button class="themSoLuong btn btn-dark ml-2">+</button>
+    <button class="giamSoLuong btn btn-dark ml-1">-</button>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="input-group mb-3">
+            <input type="text" name="GhiChu" class="form-control" placeholder="Thêm ghi chú ...">
+        </div>
+    </div>
+
+</div>

@@ -2,9 +2,9 @@
 @{
     Layout = null;
 }
-@using Coffee_62134455.Models.DtoEdit;
+@using Coffee.Models.DtoEdit;
 @{
-    var user = Session["user"] as Coffee_62134455.Models.TaiKhoans_62134455;
+    var user = Session["user"] as Coffee.Models.TaiKhoans;
 }
 <!DOCTYPE html>
 
@@ -49,7 +49,7 @@
                     <a href="/doanh-thu" class="dashboard-nav-item"><i class="icon icon-table"></i> Doanh Thu </a>
                 }
 
-                <a href="/Login_62134455/DangXuat" class="dashboard-nav-item"><i class="icon icon-sign-out"></i> Đăng xuất </a>
+                <a href="/Login/DangXuat" class="dashboard-nav-item"><i class="icon icon-sign-out"></i> Đăng xuất </a>
             </nav>
         </div>
         <div class='dashboard-app'>

@@ -1,0 +1,273 @@
+﻿
+@{
+    ViewBag.Title = "ThemSanPham";
+    Layout = "~/Views/Shared/_LayoutQuanTri.cshtml";
+}
+
+@model Coffee.Models.SanPhams
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(document).ready(function () {
+        //click Chọn ảnh sản phẩm
+        $('.chooseImage').click(function () {
+            $('input[type=file]').trigger('click');
+        });
+
+        //click nút thêm để mở form thêm
+        $('#themLoaiSP').click(function (e) {
+            e.preventDefault();
+            var htmlFrm = $.ajax({
+                method: 'GET',
+                url: "/QuanTriSP/ThemDanhMuc",
+                success: function (viewHtml) {
+                    openModal("Thêm danh mục", $(viewHtml).html());
+                }
+            })
+        })
+
+
+        //click nút Lưu lại để lưu danh mục đồ uống
+        $('#modal .btn-submit').click(function (e) {
+            
+            e.preventDefault();
+            if (!validateModal()) {
+                return false;
+            }
+
+            var formData = new FormData();
+
+            var TenDanhMuc = $("input[name='TenDanhMuc']").val();
+            formData.append("TenDanhMuc", TenDanhMuc);
+            $(this).prop("disabled", true);
+            $.ajax({
+                method: 'POST',
+                url: "/QuanTriSP/ThemDanhMuc",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    $(this).removeClass("disabled");
+                    if (res.status == 1) {
+                        ToastMessage(res.message);
+                        setTimeout(() => {
+
+                            var newOption = $('<option value="' + res.data.id + '">' + res.data.TenDanhMuc + '</option>');
+                            $('#TenDanhMuc').append(newOption);
+                            $("#TenDanhMuc").val(res.data.id).change();
+                            $('#modal').modal('hide');
+                        }, 200)
+                    }
+                    else {
+                        ToastMessage(res.message, false);
+                    }
+                    
+                }
+            });
+        })
+
+        $('.btn-add-product').click(function (e) {
+            e.preventDefault();
+            
+            if (!validate()) {
+                $(this).removeClass("disabled");
+                return false;
+            }
+
+            var formData = new FormData();
+
+            var files = $("#img-product").get(0).files;
+
+            if (files.length > 0) {
+                if (files[0].size > 3 * 1024 * 1024) {
+                    ToastMessage("Kích thước ảnh tối đa là 3 MB", false);
+                    return false;
+                }
+                formData.append("HinhAnh", files[0]);
+            }
+            else {
+                if ($('img[hasImage="true"]').length == 0) {
+                    ToastMessage("Bạn phải chọn ảnh", false);
+                    return false;
+                }
+            }
+
+            var TenSanPham = $("input[name='TenSanPham']").val();
+            var Gia = $("input[name='Gia']").val();
+            var sizes = '';
+            var checkSize = false;
+            $("input[name='Size']:checked").each(function () {
+                sizes += $(this).val() + ';';
+                checkSize = true;
+            });
+            
+            var MoTa = $("textarea[name='MoTa']").val();
+            var id_danhmuc = $("select[name='TenDanhMuc'] option:selected").val();
+
+
+            formData.append("TenSanPham", TenSanPham);
+            formData.append("Gia", Gia);
+            formData.append("Size", sizes);
+            formData.append("MoTa", MoTa);
+            formData.append("id_danhmuc", id_danhmuc);
+            formData.append("id", "@Model.id");
+
+            $(this).prop("disabled", true);
+            $.ajax({
+                method: 'POST',
+                url: "/QuanTriSP/ThemSanPham",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    if (res.status == 1) {
+                        ToastMessage(res.message)
+                        setTimeout(() => {
+                            location.href = "/QuanTriSP/ThemSanPham";
+                        }, 500)
+                    }
+                    else {
+                        ToastMessage(res.message, false);
+                    }
+                }
+            });
+
+        })
+
+        //$('input.currency').each(function () {
+        //    $(this).autoNumeric('init');
+        //})
+
+        //Binding size các cốc ra checkboox
+        var arrSizeModel = "@Model.Size";
+        var arSize = $(arrSizeModel.split(';')).each(function (index, val) {
+            if (val) {
+                $("input[name='Size'][value=" + val + "] ").prop('checked', true);
+            }
+        });
+
+    })
+</script>
+<form style="padding:30px;">
+    @*<input type="text" id="id" value="@Model.id" class="hidden" />*@
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Ảnh ( Tối đa 3MB <span class="red">*</span>)</label>
+        <div class="col-sm-10">
+            <div class="dropzone img-upload">
+                <input class="mb-1" id="img-product" style="display:none;" type='file' accept="image/png, image/jpeg" onchange="readURL(this);" />
+                <div class="chooseImage" style="height:100px; width: 100px; border: 1px dotted black; border-radius:3px; cursor:pointer">
+                    @if (Model.HinhAnh == null)
+                    {
+
+                        <img height="100" width="100" style="padding:10px;" id="blah" src="~/Assets/icons/upload-icon.svg" alt="your image" />
+                    }
+                    else
+                    {
+                        <img height="100" width="100" hasImage="true" style="padding:10px;" id="blah" src="/Assets/images/@Model.HinhAnh" alt="your image" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Tên sản phẩm (<span class="red">*</span>)</label>
+        <div class="col-sm-10">
+            @*<input class="form-control required" name="TenSanPham" placeholder="VD: Coffee muối,...">*@
+            @Html.EditorFor(x => Model.TenSanPham, new { htmlAttributes = new { @class = "required form-control", @placeholder = "VD: Coffee muối,..." } })
+            <label class="message"></label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Đơn giá (<span class="red">*</span>)</label>
+        <div class="col-sm-10">
+            @*<input type="number" name="Gia" class="form-control required currency">*@
+            @Html.EditorFor(x => Model.Gia, new { htmlAttributes = new { @class = "required form-control", @type = "number" } })
+            <label class="message"></label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2">Size (<span class="red">*</span>)</div>
+        <div class="col-sm-10">
+            <label class="messageSize"></label>
+            <div class="form-check">
+                <input class="form-check-input" value="S" type="checkbox" name="Size">
+                <label class="form-check-label">
+                    S
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" value="M" type="checkbox" name="Size">
+                <label class="form-check-label">
+                    M
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" value="L" type="checkbox" name="Size">
+                <label class="form-check-label">
+                    L
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" value="Khổng lồ" type="checkbox" name="Size">
+                <label class="form-check-label">
+                    Khổng lồ
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Mô tả</label>
+        <div class="col-sm-10">
+            @*<textarea class="form-control" name="MoTa"></textarea>*@
+            @Html.TextAreaFor(x => Model.MoTa, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Loại sản phẩm (<span class="red">*</span>)</label>
+        <div class="col-sm-10">
+            @Html.DropDownList("TenDanhMuc", new SelectList(ViewBag.DanhMucs, "id", "TenDanhMuc", Model.id_danhmuc), new { @class = "required form-control" })
+            <label class="message"></label></br>
+            <button id="themLoaiSP" class="btn btn-dark mt-1 pointer"><i class="icon icon-plus-circle"></i> Thêm Loại</button>
+        </div>
+    </div>
+
+    <div class="form-group row mt-5">
+        <div class="col-sm-10">
+            @if (Model.id == 0)
+            {
+
+                <button type="submit" class="btn btn-success btn-add-product pointer"><i class="icon icon-plus-circle"></i> Thêm mới</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-success btn-add-product pointer"><i class="icon icon-update"></i> Cập nhật</button>
+            }
+        </div>
+    </div>
+
+
+
+
+</form>
+
+
+
+
+
+
+
+

@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutQuanTri.cshtml";
+}
+
+
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Coffee.Models.DonHangs>
+
+<style>
+    .pagination {
+        float: right;
+        margin: 0 0 5px;
+    }
+
+        .pagination li a {
+            border: none;
+            font-size: 95%;
+            width: 30px;
+            height: 30px;
+            color: #999;
+            margin: 0 2px;
+            line-height: 30px;
+            border-radius: 30px !important;
+            text-align: center;
+            padding: 10px 12px;
+        }
+
+            .pagination li a:hover {
+                color: #666;
+            }
+
+        .pagination li.active a {
+            background: #03A9F4;
+        }
+
+            .pagination li.active a:hover {
+                background: #0397d6;
+            }
+
+        .pagination li.disabled i {
+            color: #ccc;
+        }
+
+        .pagination li i {
+            font-size: 16px;
+            padding-top: 6px
+        }
+    .value-text {
+        color: darkcyan;
+        font-weight: 700;
+    }
+
+    .value-phone {
+        color: darkslategrey;
+        font-weight: 700;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('.xem-chi-tiet').click(function () {
+            location.href = '/QuanTriDonHang/ChiTietDonHang?id=' + $(this).data('id');
+        })
+    })
+</script>
+
+@if (Model.Count == 0)
+{
+    <div class="text-center p-5">Không có đơn hàng</div>
+}
+
+@foreach (var item in Model)
+{
+
+    <div class="row block-item pl-5">
+        <div class="col-12">
+            <h3>Đơn hàng: <span class="value-text">@item.id</span></h3>
+            <div>Khách hàng: <span class="value-text">@item.TenKhachHang</span></div>
+            <div>Số ĐT: <span class="value-phone">@item.SDT</span></div>
+            <div>Địa chỉ nhận hàng: <span class="value-text">@item.DiaChiNhanHang</span></div>
+            <div>Ngày đặt: <span class="value-text">@item.NgayDatHang</span></div>
+            @{
+                if (item.TrangThai == 0)
+                {
+                    <div class="font-weight-bold red">Chờ xác nhận</div>
+                }
+                else
+                {
+                    <div class="font-weight-bold red">Đã xác nhận giao hàng</div>
+                }
+            }
+
+            <button data-id="@item.id" class="btn btn-secondary pointer mt-2 xem-chi-tiet">Chi tiết</button>
+        </div>
+
+    </div>
+    <hr />
+}
+<div class="clearfix">
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page }))
+</div>
+

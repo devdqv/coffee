@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Coffee_62134455.Models.DtoEdit
+namespace Coffee.Models.DtoEdit
 {
     [NotMapped]
-    public partial class ChiTietDonHangsDtoEdit_62134455: ChiTietDonHangs_62134455
+    public partial class ChiTietDonHangsDtoEdit: ChiTietDonHangs
     {
         //Thuộc tính để biết khách hàng thay đổi gì trong giỏ hàng
         public string actionEdit { get; set; }

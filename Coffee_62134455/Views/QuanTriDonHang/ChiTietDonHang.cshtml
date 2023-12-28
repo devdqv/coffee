@@ -1,0 +1,54 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutQuanTri.cshtml";
+}
+
+@using Coffee.Models;
+@model DonHangs
+
+
+
+@using (Html.BeginForm("XacNhanDonHang", "QuanTriDonHang", new { id = Model.id }, FormMethod.Post))
+{
+<h1>THÔNG TIN ĐƠN HÀNG</h1>
+<div>Khách hàng : <span style="color:darkred; font-weight:700;">@Model.TenKhachHang</span></div>
+<div>Số ĐT:  <span style="color:darkred; font-weight:700;">@Model.SDT</span></div>
+<div>Địa chỉ nhận hàng:  <span style="color:darkred; font-weight:700;">@Model.DiaChiNhanHang</span></div>
+
+<div class="mt-1"><b>Lưu ý cho đơn hàng:</b>  <span class="red" style="font-weight:700;">@Model.GhiChu</span></div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Sản Phẩm</th>
+            <th scope="col">Size</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Ghi chú</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ChiTietDonHangs)
+        {
+            <tr>
+                <td><img src="~/Assets/images/@item.SanPhams.HinhAnh" width="100" height="100" /></td>
+                <td>@item.SanPhams.TenSanPham</td>
+                <td>@item.Size</td>
+                <td>@item.SoLuong</td>
+                <td>@item.GhiChu</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<div>
+    @if (Model.TrangThai == 0)
+    {
+
+        <button type="submit" class="btn btn-success btn-confirm pointer">Xác nhận</button>
+    }
+    else
+    {
+        <h4 style="color:green;">Đã xác nhận</h4>
+    }
+</div>
+
+}

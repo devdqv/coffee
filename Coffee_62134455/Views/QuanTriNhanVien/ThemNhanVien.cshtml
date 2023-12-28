@@ -1,0 +1,64 @@
+﻿@model Coffee.Models.TaiKhoans
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Thêm nhân viên</title>
+</head>
+<body>
+    <form>
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.TenNguoiDung, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.TenNguoiDung, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TenNguoiDung, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.VaiTro, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-12">
+                    @*@Html.EditorFor(model => model.VaiTro, new { htmlAttributes = new { @class = "form-control" } })*@
+                    @Html.DropDownList("VaiTro", new SelectList(ViewBag.VaiTros, "Value", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.VaiTro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-12">
+                    <input type="submit" value="Thêm mới" class="btn btn-secondary" />
+                </div>
+            </div>*@
+        </div>
+        
+    </form>
+    
+</body>
+</html>

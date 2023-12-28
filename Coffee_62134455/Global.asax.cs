@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace Coffee_62134455
+namespace Coffee
 {
     public class MvcApplication : System.Web.HttpApplication
     {
